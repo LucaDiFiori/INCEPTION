@@ -21,7 +21,7 @@ This project aims to broaden your knowledge of system administration by using Do
 - [What is a Docker Daemon](#What_is_a_Docker_Daemon)
 - [Docker Networking](#Docker_Networking) --> VEDERE QUESTO
 - [What is a Docker Compose?](#What_is_a_Docker_Compose?)
-- [](#)
+- [What is a Volume?](#What_is_a_Volume?)
 
 <br>
 <br>
@@ -393,11 +393,53 @@ services:
 
 ***
 
+# What is a Volume?
+In Docker, a volume is a persistent storage location that is used to store data from a container. Volumes are used to persist data from a container even after the container is deleted, and they can be shared between containers.
+
+There are two types of volumes in Docker:
+
+- **Bind mount**: A bind mount is a file or directory on the host machine that is mounted into a container. Any changes made to the bind mount are reflected on the host machine and in any other containers that mount the same file or directory.<br>
+- **Named volume**: A named volume is a managed volume that is created and managed by Docker. It is stored in a specific location on the host machine, and it is not tied to a specific file or directory on the host. Named volumes are useful for storing data that needs to be shared between containers, as they can be easily attached and detached from containers.<br>
+
+You can create and manage volumes using the docker volume command. For example, to create a new named volume, you can use the following command:
+```bash
+docker volume create my-volume
+```
+This command reates a Docker volume named my-volume.
+
+- Volumes are used for persistent data storage in Docker.
+- The data stored in the volume will remain even if the container using it is removed.
+- This command only creates the volume; **it doesn't attach it to any container**.
+- By default, Docker stores volumes in a directory on the host, typically:
+  - Linux: /var/lib/docker/volumes/
+
+you can inspect the volume's details, including its location on the host, using:
+```bash
+docker volume inspect my-volume
+```
+
+To mount a volume into a container, you can use the -v flag when starting the container. For example:
+```bash
+docker run -v my-volume:/var/lib/mysql mysql
+```
+This command will start a container running the mysql image and mount the my-volume volume at /var/lib/mysql in the container. Any data written to this location in the container will be persisted in the volume, even if the container is deleted. <br>
+
+You can also use Docker Compose to create and manage volumes. In a Compose file, you can define a volume and attach it to a service. For example:
+```yaml
+version: '3'
+services:
+  db:
+    image: mysql
+    volumes:
+      - db-data:/var/lib/mysql
+volumes:
+  db-data:
+```
+This Compose file defines a db-data volume and attaches it to the db service at /var/lib/mysql. Any data written to this location in the container will be persisted in the volume.
 
 
-
-
-
+<br>
+<br>
 
 ***
 ***
