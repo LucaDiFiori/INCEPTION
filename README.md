@@ -417,13 +417,13 @@ you can inspect the volume's details, including its location on the host, using:
 ```bash
 docker volume inspect my-volume
 ```
-
+<br>
 To mount a volume into a container, you can use the -v flag when starting the container. For example:
 ```bash
 docker run -v my-volume:/var/lib/mysql mysql
 ```
 This command will start a container running the mysql image and mount the my-volume volume at /var/lib/mysql in the container. Any data written to this location in the container will be persisted in the volume, even if the container is deleted. <br>
-
+<br>
 You can also use Docker Compose to create and manage volumes. In a Compose file, you can define a volume and attach it to a service. For example:
 ```yaml
 version: '3'
