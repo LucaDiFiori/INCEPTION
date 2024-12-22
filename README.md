@@ -188,6 +188,53 @@ APP_ENV=production
 **Benefit**: <br>
 Simplifies deployment by allowing the same docker-compose.yml to be reused across environments.
 
+
+## Example
+Here’s an example of a Docker Compose to make things a little bit clear:
+```yaml
+version: '3'
+
+# All the services that you will work with should be declared under
+# the SERVICES section!
+services:
+
+  # Name of the first service (for example: nginx)
+  nginx:
+  
+    # The hostname of the service (will be the same as the service name!)
+    hostname: nginx
+    
+    # Where the service exist (path) so you can build it (using a Dockerfile)
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
+      
+    # Restart to always keep the service restarting in case of
+    # any unexpected errors causing it to go down
+    restart: always
+    
+    # This line explains itself!!!
+    depends_on:
+      - wordpress
+      
+    # The ports that will be exposed and you will work with
+    ports:
+      - 443:443
+      
+    # The volumes that you will be mounted when the container gets built
+    volumes:
+      - wordpress:/var/www/html
+      
+    # The networks that the container will connect and communicate
+    # with the other containers
+    networks:
+      - web
+
+  # Name of the second service (for example: db)
+  db:
+    etc...
+```
+
 <br>
 <br>
 
