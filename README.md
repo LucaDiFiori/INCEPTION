@@ -73,10 +73,10 @@ Docker Compose is a tool that allows you to define and manage multi-container Do
 
 --> Watch this: [NetworkChuck](https://www.youtube.com/watch?v=DM65_JyGxCo)
 
-## Key Features of Docker Compose
+
 A Docker Compose has 5 important parts, which are:
 
-### 1. Service Definition
+## 1. Service Definition
 Docker Compose allows you to define multiple services (containers) in a single docker-compose.yml file.
 
 **What is a service?** <br>
@@ -98,7 +98,7 @@ services:
 You can define all components of your application (like a web server, database, and caching layer) in one place. This ensures the components run together smoothly.
 
 
-### 2. Networking
+## 2. Networking
 Docker Compose automatically sets up a default network for your services to communicate with each other without any manual configuration.
 
 **Default network**: <br>
@@ -119,7 +119,7 @@ services:
 No need to manually set up or configure IPs or network links—Compose handles it automatically.
 
 
-### 3. Volume Management
+## 3. Volume Management
 Compose makes it easy to **define and share volumes** between services for persistent data storage.
 
 **What is a volume?** <br>
@@ -143,7 +143,7 @@ volumes:
 Ensures data (e.g., databases or user files) is not lost when containers are restarted.
 
 
-### 4. Scaling
+## 4. Scaling
 Docker Compose makes it easy to scale services up or down with a single command.
 
 **How does scaling work?** <br>
@@ -152,7 +152,7 @@ You can specify the number of container instances (replicas) for a service. For 
 docker-compose up --scale web=3
 ```
 
-### 5. Multi-environment Deployment
+## 5. Multi-environment Deployment
 Compose allows you to easily configure environments like development, staging, or production.
 
 **Environment-specific configuration:** <br>
