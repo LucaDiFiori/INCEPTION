@@ -21,6 +21,24 @@ A Container is a standard unit of software that packages up code and all its dep
 
 --> Watch this: [NetworkChuck](https://www.youtube.com/watch?v=eGz9DS-aIeY)
 
+## Usefull Command
+- This command runs a command in a new container, pulling the image if needed and starting the container.
+```bash
+docker run <img-name>
+```
+- Delete an immage. Use `-f` after `rmi` if needed
+```bash
+docker rmi  <img-name>
+```
+
+- remove all stopped containers
+```bash
+docker container prune [OPTIONS]
+```
+
+***
+
+
 # What is a Docker Image?
 Docker Image is a lightweight executable package that includes everything the application needs to run, including the code, runtime environment, system tools, libraries, and dependencies.
 
