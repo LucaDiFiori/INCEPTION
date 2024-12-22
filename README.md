@@ -190,7 +190,7 @@ Simplifies deployment by allowing the same docker-compose.yml to be reused acros
 
 <br>
 
-## Example
+# Example
 Here’s an example of a Docker Compose to make things a little bit clear:
 ```yaml
 version: '3'
