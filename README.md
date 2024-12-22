@@ -1,7 +1,7 @@
 # INCEPTION
 This project aims to broaden your knowledge of system administration by using Docker. You will virtualize several Docker images, creating them in your new personal virtual machine.
 
-## Sources
+# Sources
 - GitHun
   - https://github.com/Forstman1/inception-42 (recommended)
   - https://github.com/shameleon/inception-42?tab=readme-ov-file
@@ -13,6 +13,16 @@ This project aims to broaden your knowledge of system administration by using Do
   - https://medium.com/edureka/docker-networking-1a7d65e89013 (How Containers Communicate)
 - Grademe.fr
   - https://tuto.grademe.fr/inception/#nginx
+ 
+# Table of contents
+- [What is a Container?](#What_is_a_Container?)
+- [What is a Docker Image?](#What_is_a_Docker_Image?)
+- [What is a Dockerfile?](#What_is_a_Dockerfile?)
+- [What is a Docker Daemon](#What_is_a_Docker_Daemon)
+- [Docker Networking](#Docker_Networking) --> VEDERE QUESTO
+- [What is a Docker Compose?](#What_is_a_Docker_Compose?)
+- [](#)
+
 
 ***
 ***
