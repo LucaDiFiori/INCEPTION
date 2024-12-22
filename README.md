@@ -101,6 +101,111 @@ The Docker daemon, also known as dockerd, is the core background process that ru
 
 ***
 
+# Docker Networking
+A Docker network is a virtual networking layer that enables communication between Docker containers, the host system, and external systems. Networks allow containers to interact seamlessly while providing isolation and security.
+
+Docker uses several network drivers (types) to cater to different networking needs and scenarios, allowing users to choose the appropriate configuration for their applications.
+
+--> Read this: [Medium](https://medium.com/edureka/docker-networking-1a7d65e89013)
+--> Whatc this: [NetworkChuck](https://www.youtube.com/watch?v=bKFMS5C4CG0)
+
+
+## Purpose of Docker Networks
+- **Container Communication**: Facilitate communication between containers.
+- **Isolation**: Keep container networks separate to prevent unauthorized access.
+- **Flexibility**: Tailor networks to specific applications or environments.
+- **Resource Management**: Control resource allocation and traffic management.
+
+
+## Types of Docker Networks
+Docker provides several network drivers, each suited for different use cases. Here are seven types of Docker networks:
+
+### 1. Bridge Network
+- **Description:** The default network driver. It creates a private internal network on a single host, allowing containers to communicate with each other while isolating them from external networks.
+- **Use Case:** Best suited for applications that require container-to-container communication on the same host.
+- **Key Features:**
+  - Containers can communicate using their container names as hostnames.
+  - Automatic IP address assignment.
+- **Example:** Create and run a container in the bridge network:
+```bash
+docker run -d --name webapp --network bridge nginx
+```
+
+
+### 2. Host Network
+- **Description:** This driver removes the isolation between the container and the Docker host, allowing the container to share the host's network stack.
+- **Use Case:** Useful for performance-sensitive applications that require high-speed network access or when you need to use specific network features of the host.
+- **Key Features:**
+  - No network address translation (NAT); the container uses the host's IP address.
+  - Containers can bind to ports on the host directly.
+- **Example:** Run a container using the host network:
+```bash
+docker run -d --network host nginx
+```
+
+
+### 3. None Network
+- **Description:** This driver disables all networking for the container, isolating it completely.
+- **Use Case:** Suitable for containers that do not need network access, such as batch jobs or isolated processes.
+- **Key Features:**
+  - Containers cannot communicate over the network.
+  - Useful for specific security scenarios.
+- **Example:** Run a container with no network:
+```bash
+docker run --network none --name isolated-container alpine
+```
+
+
+### 4. Overlay Network
+- **Description:**  Creates a network that spans multiple Docker hosts, allowing containers to communicate across different hosts. This is essential for multi-host deployments in clustered environments.
+- **Use Case:** Primarily used in Docker Swarm or Kubernetes setups where containers across different machines need to interact.
+- **Key Features:**
+  - Uses a built-in overlay driver and requires a key-value store (like etcd or Consul) for service discovery.
+  - Provides a consistent and simple networking layer.
+- **Example:** Create an overlay network:
+```bash
+docker network create --driver overlay my-overlay
+```
+
+
+### 5. Macvlan Network
+- **Description:** Assigns a MAC address to each container, making them appear as physical devices on the network. This allows for easier integration with existing physical networks.
+- **Use Case:**  Useful for applications that require containers to be directly accessible on the local network, such as legacy applications or services requiring a specific MAC address.
+- **Key Features:**
+  - Containers can be addressed directly via their MAC address.
+  - Allows for better integration with VLANs.
+- **Example:** Create a Macvlan network:
+```bash
+docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 my-macvlan
+```
+
+
+### 6. IAM Network
+- **Description:** This type of network allows containers to communicate securely within the same environment, supporting both public and private IP ranges.
+- **Use Case:** Useful for applications that need to manage sensitive data and maintain strict security boundaries.
+- **Key Features:**
+  - Provides options for public IP ranges and enhanced security.
+  - Facilitates seamless integration with existing IAM solutions.
+
+
+### 7. External Network
+- **Description:** Allows you to connect to networks created outside of Docker's control. This can be useful when integrating Docker containers with existing network infrastructure.
+- **Use Case:** Best for scenarios where Docker containers need to connect to existing applications or services running outside of Docker.
+- **Key Features:**
+  - Provides flexibility to connect with pre-existing networks
+  - Allows for configuration management of external services.
+- **Example:**
+```bash
+docker run --network <external-network> <image>
+```
+
+
+
+<br>
+<br>
+
+***
+
 # What is a Docker Compose?
 Docker Compose is a tool that allows you to define and manage multi-container Docker applications. It uses a YAML file (docker-compose.yml) to configure the services, networks, and volumes needed for your application. With Docker Compose, you can start, stop, and manage all the containers defined in the configuration file with simple commands.
 
@@ -282,7 +387,8 @@ services:
 
 ***
 ***
-# Usefull Command - Docker
+# Usefull Command - Docker 
+## 1. containers
 - Pull an immage from docker hub
 ```bash
 docker pull <img>
@@ -299,6 +405,37 @@ docker rmi  <img-name>
 - remove all stopped containers
 ```bash
 docker container prune [OPTIONS]
+```
+
+## 2. Networks
+- Create a Network
+```bash
+docker network create <network-name>
+```
+
+- List Networks
+```bash
+docker network ls
+```
+
+- Inspect a Network
+```bash
+docker network inspect <network-name>
+```
+
+- Remove a Network
+```bash
+docker network rm <network-name>
+```
+
+- Connect a Container to a Network
+```bash
+docker network connect <network-name> <container-name>
+```
+
+- Disconnect a Container from a Network
+```bash
+docker network disconnect <network-name> <container-name>
 ```
 
 <br>
