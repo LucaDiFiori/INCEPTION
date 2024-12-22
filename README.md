@@ -21,20 +21,6 @@ A Container is a standard unit of software that packages up code and all its dep
 
 --> Watch this: [NetworkChuck](https://www.youtube.com/watch?v=eGz9DS-aIeY)
 
-## Usefull Command
-- This command runs a command in a new container, pulling the image if needed and starting the container.
-```bash
-docker run <img-name>
-```
-- Delete an immage. Use `-f` after `rmi` if needed
-```bash
-docker rmi  <img-name>
-```
-
-- remove all stopped containers
-```bash
-docker container prune [OPTIONS]
-```
 
 ***
 
@@ -72,4 +58,23 @@ COPY ./conf/nginx.conf /etc/nginx/http.d/default.conf
 
 # This Specifies the command that will run when the container get started
 CMD ["nginx", "-g", "daemon off;"]
+```
+
+
+
+***
+***
+# Usefull Command
+- This command runs a command in a new container, pulling the image if needed and starting the container.
+```bash
+docker run <img-name>
+```
+- Delete an immage. Use `-f` after `rmi` if needed
+```bash
+docker rmi  <img-name>
+```
+
+- remove all stopped containers
+```bash
+docker container prune [OPTIONS]
 ```
