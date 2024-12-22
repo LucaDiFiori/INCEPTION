@@ -33,9 +33,9 @@ Although it cannot guarantee error-free performance, as the behavior of an appli
 
 Docker Image is built from a DOCKERFILE, which is a simple text file that contains a set of instructions for building the image, with each instruction creating a new layer in the image.
 
+<br>
+<br>
 ***
-<br>
-<br>
 
 # What is a Dockerfile?
 Dockerfile is that SIMPLE TEXT FILE that I mentioned earlier, which contains a set of instructions for building a Docker Image. It specifies the base image to use and then includes a series of commands that automate the process for configuring and building the image, such as installing packages, copying files, and setting environment variables. Each command in the Dockerfile creates a new layer in the image.
@@ -64,9 +64,9 @@ CMD ["nginx", "-g", "daemon off;"]
 ```
 
 
+<br>
+<br>
 ***
-<br>
-<br>
 
 # What is a Docker Compose?
 Docker Compose is a tool that allows you to define and manage multi-container Docker applications. It uses a YAML file (docker-compose.yml) to configure the services, networks, and volumes needed for your application. With Docker Compose, you can start, stop, and manage all the containers defined in the configuration file with simple commands.
@@ -185,9 +185,9 @@ APP_ENV=production
 **Benefit**: <br>
 Simplifies deployment by allowing the same docker-compose.yml to be reused across environments.
 
-
-
-
+<br>
+<br>
+***
 
 
 
