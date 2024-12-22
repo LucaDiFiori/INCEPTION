@@ -106,7 +106,7 @@ A Docker network is a virtual networking layer that enables communication betwee
 
 Docker uses several network drivers (types) to cater to different networking needs and scenarios, allowing users to choose the appropriate configuration for their applications.
 
---> Read this: [Medium](https://medium.com/edureka/docker-networking-1a7d65e89013)
+--> Read this: [Medium](https://medium.com/edureka/docker-networking-1a7d65e89013) <br>
 --> Whatc this: [NetworkChuck](https://www.youtube.com/watch?v=bKFMS5C4CG0)
 
 
