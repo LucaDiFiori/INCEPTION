@@ -405,7 +405,7 @@ You can create and manage volumes using the docker volume command. For example, 
 ```bash
 docker volume create my-volume
 ```
-This command reates a Docker volume named my-volume.
+This command creates a Docker volume named my-volume in a directory on the host.
 
 - Volumes are used for persistent data storage in Docker.
 - The data stored in the volume will remain even if the container using it is removed.
