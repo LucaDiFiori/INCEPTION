@@ -74,10 +74,10 @@ A Docker Compose has 5 important parts, which are:
 ### 1. Service Definition
 Docker Compose allows you to define multiple services (containers) in a single docker-compose.yml file.
 
-**What is a service?**
+**What is a service?** <br>
 A service represents a single container, including all its configuration (e.g., image, ports, environment variables).
 
-**How does it work?**
+**How does it work?** <br>
 Each service you define in the docker-compose.yml file corresponds to a container. For example:
 ```yaml
 services:
