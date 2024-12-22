@@ -61,6 +61,44 @@ CMD ["nginx", "-g", "daemon off;"]
 ```
 
 
+***
+
+# What is a Docker Compose?
+Docker Compose is a tool that allows you to define and manage multi-container Docker applications. It uses a YAML file (docker-compose.yml) to configure the services, networks, and volumes needed for your application. With Docker Compose, you can start, stop, and manage all the containers defined in the configuration file with simple commands.
+
+--> Watch this: [NetworkChuck](https://www.youtube.com/watch?v=DM65_JyGxCo)
+
+## Key Features of Docker Compose
+A Docker Compose has 5 important parts, which are:
+
+### 1. Service Definition
+Docker Compose allows you to define multiple services (containers) in a single docker-compose.yml file.
+
+**What is a service?**
+A service represents a single container, including all its configuration (e.g., image, ports, environment variables).
+
+**How does it work?**
+Each service you define in the docker-compose.yml file corresponds to a container. For example:
+```yaml
+services:
+  app:
+    image: myapp:latest
+  db:
+    image: mysql:latest
+```
+- The `app` service will create a container from the myapp:latest image.
+- The `db` service will create a container from the mysql:latest image.
+
+**Benefit**:
+You can define all components of your application (like a web server, database, and caching layer) in one place. This ensures the components run together smoothly.
+
+
+### 2. Networking
+
+
+
+
+
 
 ***
 ***
