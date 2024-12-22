@@ -101,7 +101,6 @@ The Docker daemon, also known as dockerd, is the core background process that ru
 
 ***
 
-# What is a Dockerfile?
 # What is a Docker Compose?
 Docker Compose is a tool that allows you to define and manage multi-container Docker applications. It uses a YAML file (docker-compose.yml) to configure the services, networks, and volumes needed for your application. With Docker Compose, you can start, stop, and manage all the containers defined in the configuration file with simple commands.
 
