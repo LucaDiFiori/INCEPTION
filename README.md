@@ -29,7 +29,9 @@ This project aims to broaden your knowledge of system administration by using Do
 ***
 ***
 # What is a Container?
-A Container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another.
+A container is a lightweight, portable, and self-sufficient environment that packages an application and all its dependencies (libraries, binaries, configuration files) together. It ensures the application runs consistently regardless of the host system or environment.
+
+Containers virtualize at the operating system level instead of the hardware level (as virtual machines do), making them faster and more efficient.
 
 --> Watch this: [NetworkChuck](https://www.youtube.com/watch?v=eGz9DS-aIeY)
 
