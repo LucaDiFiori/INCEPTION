@@ -235,6 +235,9 @@ services:
   db:
     etc...
 ```
+- `version`: Specifies the version of the Docker Compose file format.
+- `services`: Lists the containers to be run. Each service has its own configuration:
+- `volumes`: Specifies volumes for persistent storage.
 
 <br>
 <br>
@@ -249,7 +252,7 @@ services:
 
 ***
 ***
-# Usefull Command
+# Usefull Command - Docker
 - Pull an immage from docker hub
 ```bash
 docker pull <img>
@@ -266,4 +269,36 @@ docker rmi  <img-name>
 - remove all stopped containers
 ```bash
 docker container prune [OPTIONS]
+```
+
+***
+# Usefull Command - Docker Compose
+**Start Services:**
+```bash
+docker-compose up
+```
+Use `-d` for detached mode:
+
+
+**Stop Services:**
+```bash
+docker-compose down
+```
+
+
+**View Logs:**
+```bash
+docker-compose logs
+```
+
+
+**Scale a Service:**
+```bash
+docker-compose up --scale web=3
+```
+
+
+**Rebuild Services:**
+```bash
+docker-compose up --build
 ```
