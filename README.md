@@ -65,6 +65,10 @@ CMD ["nginx", "-g", "daemon off;"]
 ***
 ***
 # Usefull Command
+- Pull an immage from docker hub
+```bash
+docker pull <img>
+```
 - This command runs a command in a new container, pulling the image if needed and starting the container.
 ```bash
 docker run <img-name>
