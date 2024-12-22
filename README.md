@@ -189,6 +189,7 @@ APP_ENV=production
 Simplifies deployment by allowing the same docker-compose.yml to be reused across environments.
 
 <br>
+
 ## Example
 Here’s an example of a Docker Compose to make things a little bit clear:
 ```yaml
