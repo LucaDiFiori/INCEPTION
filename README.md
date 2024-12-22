@@ -497,6 +497,18 @@ docker network connect <network-name> <container-name>
 docker network disconnect <network-name> <container-name>
 ```
 
+
+## 3. Volums
+- This command creates a Docker volume named my-volume in a directory on the host.
+```bash
+docker volume create my-volume
+```
+
+- Mount a volume into a container
+```bash
+docker run -v my-volume:/var/lib/mysql mysql
+```
+
 <br>
 
 ***
