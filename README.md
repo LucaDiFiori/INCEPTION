@@ -70,7 +70,38 @@ CMD ["nginx", "-g", "daemon off;"]
 <br>
 
 ***
+# What is a Docker Daemon
+A daemon is a background process that runs continuously on a computer, typically without direct user interaction. Daemons are often used to handle system tasks, services, or processes that need to operate autonomously in the background.
 
+The Docker daemon, also known as dockerd, is the core background process that runs on a host machine to manage Docker containers and related resources. It acts as the "brain" of Docker, responsible for executing Docker commands and orchestrating all Docker objects such as containers, images, networks, and volumes.
+
+## Key Roles of the Docker Daemon
+**Container Management:** <br>
+- Creates, starts, stops, and removes containers.
+- Handles container lifecycle events (e.g., restarting containers if configured).
+
+**Image Management:** <br>
+- Pulls images from Docker registries like Docker Hub.
+- Builds and stores images on the host system.
+
+**Network Management:** <br>
+- Configures container networks.
+- Creates isolated networks for communication between containers.
+
+**API Listener:** <br>
+- Listens for requests sent via the Docker CLI or third-party tools using the Docker API.
+- Executes the requested operations and returns responses to the client.
+
+**Resource Allocation:** <br>
+- Allocates CPU, memory, and other resources to running containers.
+- Manages resource isolation using Linux technologies like cgroups and namespaces.
+
+<br>
+<br>
+
+***
+
+# What is a Dockerfile?
 # What is a Docker Compose?
 Docker Compose is a tool that allows you to define and manage multi-container Docker applications. It uses a YAML file (docker-compose.yml) to configure the services, networks, and volumes needed for your application. With Docker Compose, you can start, stop, and manage all the containers defined in the configuration file with simple commands.
 
