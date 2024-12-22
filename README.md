@@ -21,10 +21,11 @@ A Container is a standard unit of software that packages up code and all its dep
 
 --> Watch this: [NetworkChuck](https://www.youtube.com/watch?v=eGz9DS-aIeY)
 
+<br>
+<br>
 
 ***
-<br>
-<br>
+
 
 # What is a Docker Image?
 Docker Image is a lightweight executable package that includes everything the application needs to run, including the code, runtime environment, system tools, libraries, and dependencies.
@@ -35,6 +36,7 @@ Docker Image is built from a DOCKERFILE, which is a simple text file that contai
 
 <br>
 <br>
+
 ***
 
 # What is a Dockerfile?
@@ -66,6 +68,7 @@ CMD ["nginx", "-g", "daemon off;"]
 
 <br>
 <br>
+
 ***
 
 # What is a Docker Compose?
@@ -187,6 +190,7 @@ Simplifies deployment by allowing the same docker-compose.yml to be reused acros
 
 <br>
 <br>
+
 ***
 
 
