@@ -477,11 +477,39 @@ Employees Table
 **MySQL** <br>
 **MySQL** is a popular Relational Database Management System (RDBMS) that is used to store, manage, and retrieve structured data. It is open-source, free to use, and supports the **SQL** (Structured Query Language) standard for database operations. MySQL is developed and maintained by Oracle Corporation.
 
+<br>
+
+**LAMP**
+LAMP is a software stack used for web application development. The name is an acronym for the technologies it comprises:
+
+- Linux: The operating system that serves as the foundation.
+- Apache: A widely-used web server for hosting websites.
+- MySQL: The database management system for storing application data (or MariaDB as a common alternative).
+- PHP (or Perl/Python): The programming language for creating dynamic web content.
+
+Example Use Case:
+A LAMP stack might power a blog where:
+
+- Linux runs the server.
+- Apache delivers the blog pages to visitors.
+- MySQL stores blog posts, user comments, and metadata.
+- PHP generates the blog pages dynamically based on the stored data.
+
+<br>
+
+**LEMP**
+LEMP is a variation of the LAMP stack that replaces Apache with Nginx (pronounced "Engine-X"). The acronym stands for:
+
+- Linux: The operating system.
+- Engine-X (Nginx): A high-performance web server and reverse proxy.
+- MySQL: The database (or MariaDB as an alternative).
+- PHP (or Perl/Python): The programming language for server-side scripting.
 
 
 
 
-
+<br>
+<br>
 
 ***
 ***
