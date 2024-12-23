@@ -586,6 +586,8 @@ Nginx’s non-blocking, event-driven design allows it to handle large numbers of
 ## TLS
 Transport Layer Security (TLS) is a cryptographic protocol designed to provide secure communication over a computer network. It is widely used on the internet to secure data transmitted between clients (like web browsers) and servers (like web servers). TLS ensures confidentiality, data integrity, and authentication, making it essential for protecting sensitive information during transmission.
 
+TLS works by using public key encryption to establish a secure connection between two parties. When a client wants to communicate with a server using TLS, the client and server exchange a series of messages to establish a secure connection. This process includes the exchange of digital certificates and the negotiation of encryption keys. Once the connection is established, the client and server can communicate securely over the internet.
+
 ### Key Objectives of TLS
 - Confidentiality:
   - Encrypts data exchanged between clients and servers to prevent unauthorized access.
@@ -604,8 +606,18 @@ Transport Layer Security (TLS) is a cryptographic protocol designed to provide s
 - Web Browsing: Securing HTTP traffic to create HTTPS (HTTP over TLS), ensuring that data sent between the browser and server is encrypted.
 - Email: Securing email communications through protocols like SMTPS (SMTP over TLS), IMAPS (IMAP over TLS), and POP3S (POP3 over TLS).
 - VoIP: Securing voice communications over the Internet Protocol using TLS.
-Messaging: Securing messaging applications and APIs to protect user data.
+Messaging: Securing messaging applications and APIs to protect user data. <br>
 
+## OpenSSL
+OpenSSL is an open-source software library that provides a robust set of tools and libraries for implementing cryptographic functions and protocols, including TLS and SSL (Secure Sockets Layer). It is widely used for securing communications over networks, especially on the Internet.
+
+OpenSSL can be used for a variety of tasks related to SSL and TLS, including:
+
+- Creating and managing SSL/TLS certificates and private keys
+- Setting up and configuring SSL/TLS-enabled servers
+- Connecting to SSL/TLS-enabled servers as a client
+- Debugging SSL/TLS connections
+- Generating and signing digital certificates
 
 <br>
 <br>
