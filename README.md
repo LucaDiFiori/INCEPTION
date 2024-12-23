@@ -23,7 +23,7 @@ This project aims to broaden your knowledge of system administration by using Do
 - [What is a Docker Compose?](#What_is_a_Docker_Compose?)
 - [What is a Volume?](#What_is_a_Volume?)
 - [Mariadb](#Mariadb)
-- [Wordpress](#Wordpress)
+- [Wordpress + php-fpm](#Wordpress_+_php-fpm)
 
 <br>
 <br>
@@ -510,8 +510,26 @@ LEMP is a variation of the LAMP stack that replaces Apache with Nginx (pronounce
 <br>
 
 ***
-# Wordpress
+# Wordpress + php-fpm
 WordPress is a content management system (CMS) based on PHP and MySQL. It is an open-source platform that is widely used for building websites, blogs, and applications. With WordPress, users can easily create and manage their own websites without the need for advanced technical skills. 
+
+### FastCGI 
+FastCGI is a protocol that allows web servers to communicate with web applications, such as PHP scripts. It is designed to allow web servers to execute scripts in a more efficient way than traditional CGI (Common Gateway Interface) protocols, which involve starting a new process to execute each script.
+
+**How FastCGI Works** <br>
+- Separation of Concerns
+  - FastCGI separates the web server from the application logic, allowing each to focus on its strengths.
+  - The web server handles HTTP requests, while the FastCGI process (or application server) executes application code.
+
+- Persistent Processes
+  - Unlike CGI, which starts a new process for every request, FastCGI maintains persistent processes.
+  - These processes handle multiple requests, reducing the overhead of repeatedly starting and stopping processes.
+
+- Communication
+  - The web server forwards client requests to the FastCGI server over a network or Unix socket.
+  - FastCGI processes the request and sends the response (e.g., HTML) back to the web server.
+
+
 
 <br>
 <br>
