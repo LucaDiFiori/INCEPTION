@@ -583,10 +583,28 @@ It provides features like:
 **7. Highly Scalable Architecture** <br>
 Nginx’s non-blocking, event-driven design allows it to handle large numbers of concurrent connections with minimal hardware resources.<br>
 
+## TLS
+Transport Layer Security (TLS) is a cryptographic protocol designed to provide secure communication over a computer network. It is widely used on the internet to secure data transmitted between clients (like web browsers) and servers (like web servers). TLS ensures confidentiality, data integrity, and authentication, making it essential for protecting sensitive information during transmission.
+
+### Key Objectives of TLS
+- Confidentiality:
+  - Encrypts data exchanged between clients and servers to prevent unauthorized access.
+  - Only the intended recipient can decrypt and read the data.
+
+- Data Integrity:
+  - Ensures that data is not altered during transmission. Any modification of data can be detected.
+  - Uses cryptographic checksums (hash functions) to verify the integrity of the transmitted data.
+
+- Authentication:
+  - Confirms the identity of the parties involved in the communication, ensuring that clients are communicating with legitimate servers.
+  - Typically achieved through digital certificates issued by trusted Certificate Authorities (CAs).
 
 
-
-
+### Use Cases for TLS
+- Web Browsing: Securing HTTP traffic to create HTTPS (HTTP over TLS), ensuring that data sent between the browser and server is encrypted.
+- Email: Securing email communications through protocols like SMTPS (SMTP over TLS), IMAPS (IMAP over TLS), and POP3S (POP3 over TLS).
+- VoIP: Securing voice communications over the Internet Protocol using TLS.
+Messaging: Securing messaging applications and APIs to protect user data.
 
 
 <br>
