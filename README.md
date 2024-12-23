@@ -586,7 +586,7 @@ Nginx’s non-blocking, event-driven design allows it to handle large numbers of
 ## TLS
 Transport Layer Security (TLS) is a cryptographic protocol designed to provide secure communication over a computer network. It is widely used on the internet to secure data transmitted between clients (like web browsers) and servers (like web servers). TLS ensures confidentiality, data integrity, and authentication, making it essential for protecting sensitive information during transmission.
 
-TLS works by using public key encryption to establish a secure connection between two parties. When a client wants to communicate with a server using TLS, the client and server exchange a series of messages to establish a secure connection. This process includes the exchange of digital certificates and the negotiation of encryption keys. Once the connection is established, the client and server can communicate securely over the internet.
+TLS works by using public key encryption to establish a secure connection between two parties. When a client wants to communicate with a server using TLS, the client and server exchange a series of messages to establish a secure connection. This process includes the exchange of digital certificates and the negotiation of encryption keys. Once the connection is established, the client and server can communicate securely over the internet. <br>
 
 ### Key Objectives of TLS
 - Confidentiality:
