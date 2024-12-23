@@ -479,7 +479,7 @@ Employees Table
 
 <br>
 
-**LAMP**
+**LAMP** <br>
 LAMP is a software stack used for web application development. The name is an acronym for the technologies it comprises:
 
 - Linux: The operating system that serves as the foundation.
@@ -497,7 +497,7 @@ A LAMP stack might power a blog where:
 
 <br>
 
-**LEMP**
+**LEMP** <br>
 LEMP is a variation of the LAMP stack that replaces Apache with Nginx (pronounced "Engine-X"). The acronym stands for:
 
 - Linux: The operating system.
