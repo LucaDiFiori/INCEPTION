@@ -23,6 +23,7 @@ This project aims to broaden your knowledge of system administration by using Do
 - [What is a Docker Compose?](#What_is_a_Docker_Compose?)
 - [What is a Volume?](#What_is_a_Volume?)
 - [Mariadb](#Mariadb)
+- [Wordpress](#Wordpress)
 
 <br>
 <br>
@@ -505,8 +506,12 @@ LEMP is a variation of the LAMP stack that replaces Apache with Nginx (pronounce
 - MySQL: The database (or MariaDB as an alternative).
 - PHP (or Perl/Python): The programming language for server-side scripting.
 
+<br>
+<br>
 
-
+***
+# Wordpress
+WordPress is a content management system (CMS) based on PHP and MySQL. It is an open-source platform that is widely used for building websites, blogs, and applications. With WordPress, users can easily create and manage their own websites without the need for advanced technical skills. 
 
 <br>
 <br>
