@@ -22,6 +22,7 @@ This project aims to broaden your knowledge of system administration by using Do
 - [Docker Networking](#Docker_Networking) --> VEDERE QUESTO
 - [What is a Docker Compose?](#What_is_a_Docker_Compose?)
 - [What is a Volume?](#What_is_a_Volume?)
+- [Mariadb](#Mariadb)
 
 <br>
 <br>
@@ -443,6 +444,41 @@ This Compose file defines a db-data volume and attaches it to the db service at 
 
 <br>
 <br>
+
+***
+# Mariadb
+MariaDB is an open-source relational database management system (RDBMS) that is a fork of MySQL. It was created by the original developers of MySQL after concerns arose about the acquisition of MySQL by Oracle Corporation. MariaDB aims to remain open-source and provide better performance, reliability, and compatibility.
+
+### Common Use Case
+- **Web Applications**: Frequently used in web development stacks (e.g., LAMP/LEMP).
+- **Enterprise Systems**: Provides reliability for handling large-scale data in enterprise environments.
+- **Data Warehousing**: Supports analytical workloads with advanced query optimizations.
+
+**RDBMS**
+A **Relational Database Management System (RDBMS)** is software that manages and organizes data stored in a relational database. It follows the relational model, where data is structured into tables (also called relations) that are logically connected to one another.
+- A table represents a collection of related data.
+- It consists of rows (records) and columns (attributes or fields).
+
+Example:
+```sql
+Employees Table
++----+--------+---------+
+| ID | Name   | Role    |
++----+--------+---------+
+| 1  | Alice  | Manager |
+| 2  | Bob    | Engineer|
++----+--------+---------+
+```
+
+
+**MySQL**
+**MySQL** is a popular Relational Database Management System (RDBMS) that is used to store, manage, and retrieve structured data. It is open-source, free to use, and supports the **SQL** (Structured Query Language) standard for database operations. MySQL is developed and maintained by Oracle Corporation.
+
+
+
+
+
+
 
 ***
 ***
