@@ -553,8 +553,12 @@ It is widely used in conjunction with web servers like Nginx or Apache to proces
 # Nginx + TLSv1.2 - TLSv1.3
 NGINX is a web server that can also be used as a reverse proxy, load balancer, and HTTP cache. It is known for its high performance, stability, and low resource consumption. NGINX is often used to handle server-side requests for web applications, and it can also be used to serve static content such as images and JavaScript files.
 
-It is often used in conjunction with other software, such as databases and content management systems, to build robust and scalable web applications.
+It is often used in conjunction with other software, such as databases and content management systems, to build robust and scalable web applications. <br>
 
+A **web server** is a software or hardware system that serves content (web pages, files, images, etc.) to users over the Internet. It processes incoming requests from clients (usually web browsers) and delivers the requested resources using the HTTP (Hypertext Transfer Protocol) or HTTPS (HTTP Secure) protocol.
+
+
+### Key Features of Nginx
 **1. Web Server** <br>
 Nginx can serve static content such as HTML, CSS, JavaScript, and images efficiently. It uses an event-driven architecture, which makes it faster and more resource-efficient than traditional web servers like Apache.<br>
 
