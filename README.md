@@ -24,6 +24,7 @@ This project aims to broaden your knowledge of system administration by using Do
 - [What is a Volume?](#What_is_a_Volume?)
 - [Mariadb](#Mariadb)
 - [Wordpress + php-fpm](#Wordpress_+_php-fpm)
+- [Nginx + TLSv1.2 - TLSv1.3](#Nginx_+_TLSv1.2_TLSv1.3)
 
 <br>
 <br>
@@ -528,6 +529,59 @@ FastCGI is a protocol that allows web servers to communicate with web applicatio
 - Communication
   - The web server forwards client requests to the FastCGI server over a network or Unix socket.
   - FastCGI processes the request and sends the response (e.g., HTML) back to the web server.
+
+
+### PHP-FPM
+PHP-FPM (FastCGI Process Manager) is an implementation of the FastCGI protocol specifically designed for use with PHP. It works by starting a pool of worker processes that are responsible for executing PHP scripts. When a web server receives a request for a PHP script, it passes the request to one of the worker processes, which then executes the script and returns the result to the web server. This allows PHP scripts to be executed more efficiently, as the worker processes can be reused for multiple requests.
+It is widely used in conjunction with web servers like Nginx or Apache to process PHP requests efficiently.
+
+**How FastCGI Works** <br>
+- Web Server Interaction
+  - When a web server (e.g., Nginx) receives a PHP request, it forwards the request to PHP-FPM.
+  - PHP-FPM processes the PHP code and sends the generated HTML back to the web server, which then delivers it to the user.
+
+- FastCGI Communication
+  - PHP-FPM uses the FastCGI protocol to communicate with the web server, ensuring efficient handling of requests.
+
+- Socket or Port Binding
+  - PHP-FPM listens on a Unix socket (/run/php/php7.4-fpm.sock) or a TCP port (127.0.0.1:9000) for incoming requests.
+
+<br>
+<br>
+
+***
+# Nginx + TLSv1.2 - TLSv1.3
+NGINX is a web server that can also be used as a reverse proxy, load balancer, and HTTP cache. It is known for its high performance, stability, and low resource consumption. NGINX is often used to handle server-side requests for web applications, and it can also be used to serve static content such as images and JavaScript files.
+
+It is often used in conjunction with other software, such as databases and content management systems, to build robust and scalable web applications.
+
+**1. Web Server** <br>
+Nginx can serve static content such as HTML, CSS, JavaScript, and images efficiently. It uses an event-driven architecture, which makes it faster and more resource-efficient than traditional web servers like Apache.<br>
+
+**2. Reverse Proxy** <br>
+Nginx can act as a reverse proxy, sitting between clients and backend servers, forwarding client requests to the appropriate backend server. This setup improves security, hides the backend server details, and allows for load balancing.<br>
+
+**3. Load Balancing** <br>
+It distributes incoming client requests across multiple backend servers to ensure no single server is overwhelmed, enhancing performance and reliability.<br>
+
+**4. Caching** <br>
+Nginx can cache responses from backend servers, reducing the load on those servers and improving response times for users.<br>
+
+**5. Media Streaming** <br>
+Supports real-time streaming of audio and video using protocols like HLS (HTTP Live Streaming) and RTMP (Real-Time Messaging Protocol).<br>
+
+**6. Security** <br>
+It provides features like:
+- SSL/TLS termination
+- IP whitelisting/blacklisting
+- Rate limiting to prevent DDoS attacks<br>
+
+**7. Highly Scalable Architecture** <br>
+Nginx’s non-blocking, event-driven design allows it to handle large numbers of concurrent connections with minimal hardware resources.<br>
+
+
+
+
 
 
 
