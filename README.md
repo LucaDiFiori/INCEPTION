@@ -454,7 +454,7 @@ MariaDB is an open-source relational database management system (RDBMS) that is 
 - **Enterprise Systems**: Provides reliability for handling large-scale data in enterprise environments.
 - **Data Warehousing**: Supports analytical workloads with advanced query optimizations.
 
-**RDBMS**
+**RDBMS** <br>
 A **Relational Database Management System (RDBMS)** is software that manages and organizes data stored in a relational database. It follows the relational model, where data is structured into tables (also called relations) that are logically connected to one another.
 - A table represents a collection of related data.
 - It consists of rows (records) and columns (attributes or fields).
@@ -468,10 +468,10 @@ Employees Table
 | 1  | Alice  | Manager |
 | 2  | Bob    | Engineer|
 +----+--------+---------+
-```
+``` 
 
 
-**MySQL**
+**MySQL** <br>
 **MySQL** is a popular Relational Database Management System (RDBMS) that is used to store, manage, and retrieve structured data. It is open-source, free to use, and supports the **SQL** (Structured Query Language) standard for database operations. MySQL is developed and maintained by Oracle Corporation.
 
 
