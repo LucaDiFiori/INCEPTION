@@ -606,7 +606,7 @@ TLS works by using public key encryption to establish a secure connection betwee
 - Web Browsing: Securing HTTP traffic to create HTTPS (HTTP over TLS), ensuring that data sent between the browser and server is encrypted.
 - Email: Securing email communications through protocols like SMTPS (SMTP over TLS), IMAPS (IMAP over TLS), and POP3S (POP3 over TLS).
 - VoIP: Securing voice communications over the Internet Protocol using TLS.
-Messaging: Securing messaging applications and APIs to protect user data. <br>
+Messaging: Securing messaging applications and APIs to protect user data. <br> <br>
 
 ## OpenSSL
 OpenSSL is an open-source software library that provides a robust set of tools and libraries for implementing cryptographic functions and protocols, including TLS and SSL (Secure Sockets Layer). It is widely used for securing communications over networks, especially on the Internet.
