@@ -1,0 +1,33 @@
+# La sezione services: rappresenta la definizione dei servizi che compongono la tua applicazione. 
+# Ogni servizio è un contenitore Docker che esegue una parte specifica dell'applicazione.
+services:
+
+# Servizio per il web server Nginx
+# - nginx: nome del servizio per il web server Nginx
+# - build: specifica l'immagine Docker da utilizzare per creare il container per questo servizio
+# - container_name: nome del contenitore Docker che verrà creato per questo servizio. 
+#                   Se non specificato, Docker Compose genererà un nome automaticamente.
+# - ports: mappa le porte del container alle porte dell'host
+# - depends_on: specifica i servizi che devono essere avviati prima di questo servizio. 
+#               Il servizio nginx dipende dal servizio 'wordpress'
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    ports:
+      - 443:443
+    depends_on:
+      - wordpress
+
+# Servizio per l'applicazione WordPress
+# - wordpress: nome del servizio per l'applicazione WordPress
+# - build: specifica l'immagine Docker da utilizzare per creare il container per questo servizio
+# - container_name: nome del contenitore Docker che verrà creato per questo servizio. 
+#                   Se non specificato, Docker Compose genererà un nome automaticamente.
+# - depends_on: specifica i servizi che devono essere avviati prima di questo servizio. 
+#               Il servizio wordpress dipende dal servizio 'mariadb'
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    depens_on:
+      - mariadb
+    
