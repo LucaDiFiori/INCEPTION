@@ -1,0 +1,27 @@
+[mysqld]
+
+# Specifica la directory dove MariaDb salverà i dati.
+# Se non monti un volume persistente per questa directory, 
+# i dati verranno persi quando il container viene ricreato.
+datadir = /var/lib/mysql
+
+# socket: Specifica il socket UNIX per le connessioni locali. 
+# Va bene se utilizzi connessioni interne al container.
+socket  = /run/mysqld/mysqld.sock
+
+# bind_address: specifica l'indirizzo IP a cui il server si "lega" per accettare connessioni.
+# Con * consenti connessioni da qualsiasi indirizzo e lo faccio
+# per consentire la connessione con gli altri container presenti
+bind_address=*
+
+port = 3306
+
+# user: Imposta l'utente che esegue il processo MariaDB all'interno del container
+user = mysql
+
+# Specifica il percorso del file PID (Process ID) che MariaDB crea all'avvio
+pid-file                = /run/mysqld/mysqld.pid
+
+
+
+

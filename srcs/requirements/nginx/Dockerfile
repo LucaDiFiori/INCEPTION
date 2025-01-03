@@ -6,14 +6,8 @@ FROM debian:bullseye
 # - installa OpenSSL:  è una libreria software e un toolkit per il protocollo SSL e TLS.
 #                      Viene utilizzato per implementare la crittografia e garantire 
 #                      comunicazioni sicure su reti di computer (creare e gestire i certificati).
-#   
-RUN apt-get update && apt-get upgrade && apt-get install -y \
-    nginx \
-    openssl \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-
+#
+# mkdir -p /run/nginx: 
 # La directory /run/nginx è utilizzata da Nginx per memorizzare file temporanei 
 # e di stato necessari per il funzionamento del server web.
 # Ecco alcuni esempi di cosa potrebbe essere memorizzato in questa directory:
@@ -24,8 +18,25 @@ RUN apt-get update && apt-get upgrade && apt-get install -y \
 #                             segnali di riavvio o arresto
 # - Socket Unix: socket Unix utilizzati  la comunicazione con altri servizi (come PHP-FPM), 
 #               i file di socket possono essere memorizzati in questa directory.
-# - File temporanei
-RUN mkdir -p /run/nginx
+#
+# mkdir -p /etc/nginx/ssl:
+# - I certificati SSL (Secure Sockets Layer) sono utilizzati per stabilire una connessione 
+#   sicura e crittografata tra un server web e un client (come un browser web). 
+#   Questo garantisce che i dati trasmessi tra il server e il client siano protetti da intercettazioni e manomissioni.
+#
+# - TLS (Transport Layer Security) è il successore di SSL e fornisce un livello di sicurezza migliorato. 
+#   Anche se spesso si parla di SSL, la maggior parte delle connessioni sicure oggi utilizza TLS.
+#
+# Questo comando crea una directory /etc/nginx/ssl dove puoi memorizzare i certificati SSL/TLS. 
+# Nginx utilizzerà questi certificati per stabilire connessioni HTTPS sicure con i client.
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
+    nginx \
+    openssl && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir -p /run/nginx /etc/nginx/ssl
+
 
 
 # Copia il file di configurazione di Nginx dalla directory 'conf' del contesto di build
@@ -36,18 +47,6 @@ RUN mkdir -p /run/nginx
 # Ciò facilita la gestione di configurazioni complesse, poiché consente di modificare 
 # o aggiungere configurazioni senza dover modificare il file principale nginx.conf.
 COPY conf/nginx.conf /etc/nginx/nginx.conf
-
-
-# - I certificati SSL (Secure Sockets Layer) sono utilizzati per stabilire una connessione 
-#   sicura e crittografata tra un server web e un client (come un browser web). 
-#   Questo garantisce che i dati trasmessi tra il server e il client siano protetti da intercettazioni e manomissioni.
-#
-# - TLS (Transport Layer Security) è il successore di SSL e fornisce un livello di sicurezza migliorato. 
-#   Anche se spesso si parla di SSL, la maggior parte delle connessioni sicure oggi utilizza TLS.
-#
-# Questo comando crea una directory /etc/nginx/ssl dove puoi memorizzare i certificati SSL/TLS. 
-# Nginx utilizzerà questi certificati per stabilire connessioni HTTPS sicure con i client.
-RUN mkdir -p /etc/nginx/ssl
 
 
 # Genera un certificato SSL autofirmato utilizzando OpenSSL
