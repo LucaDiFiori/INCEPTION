@@ -1,3 +1,15 @@
+# Il file 50-server.cnf è un file di configurazione per il server MariaDB, 
+# che viene utilizzato per impostare varie opzioni di configurazione del database.
+# Questo file contiene configurazioni specifiche per il server MariaDB, come la 
+# configurazione delle porte, le impostazioni di buffer, le dimensioni delle cache, 
+# i limiti sulle connessioni, e altre opzioni di performance e sicurezza.
+
+# Noi qui ne faremo una versione semplificata
+
+# NOTA: Il "server MariaDB" si riferisce al software che esegue e gestisce il database. 
+#       È responsabile dell'elaborazione delle query, della gestione delle connessioni 
+#       degli utenti, della sicurezza dei dati e dell'ottimizzazione delle prestazioni.
+
 [mysqld]
 
 # Specifica la directory dove MariaDb salverà i dati.
@@ -14,6 +26,10 @@ socket  = /run/mysqld/mysqld.sock
 # per consentire la connessione con gli altri container presenti
 bind_address=*
 
+# pecifichiamo le porte su cui il server MariaDB deve ascoltare le connessioni
+# NOTA: Questa non è la stessa porta che andrò a specificare con il campo "expose" nel dockercompose.
+#       Qui sto specificando la porta del server Mariadb, mentre nel dockercompose sto specificando
+#       la porta del container per connettermi con gli altri presenti
 port = 3306
 
 # user: Imposta l'utente che esegue il processo MariaDB all'interno del container
