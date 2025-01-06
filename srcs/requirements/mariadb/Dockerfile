@@ -16,7 +16,3 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
     CMD mysqladmin ping -u root -p"$SQL_ROOT_PASSWORD" || exit 1
 
 CMD ["/usr/local/bin/script.sh"]
-
-
-#HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-#CMD mysqladmin ping -u root -p"$SQL_ROOT_PASSWORD" || exit 1

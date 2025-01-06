@@ -1,5 +1,3 @@
-version: "3.9"
-
 # La sezione services: rappresenta la definizione dei servizi che compongono la tua applicazione. 
 # Ogni servizio è un container Docker che esegue una parte specifica dell'applicazione.
 services:
