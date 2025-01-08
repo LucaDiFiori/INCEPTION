@@ -1,6 +1,8 @@
 MARIA_VOLUME = /home/ldi-fior/data/mariadb_data
 WORDPRESS_VOLUME = /home/ldi-fior/data/wordpress_data
 
+# DEVO CAMBIARE I PERCORSI DEI VOLUMI CON POSTI IN CUI NON HO BISOGNO DEL ROOT
+
 all: docker-up set-host
 
 # Avvio i servizi docker
@@ -20,8 +22,8 @@ docker-up:
 		sudo chown -R lucadifiori /home/ldi-fior/data/; \
 	fi
 	@echo -e "\033[0;32m--> STARTING DOCKER SERVICES:\033[0m"
-	docker compose -f ./srcs/docker-compose.yml up -d --build
-
+	docker compose -f ./srcs/docker-compose.yml up  --build  
+#POI RIMETTERE -d PRIMA DI --build
 
 # modifico il file hosts per poter accedere al sito tramite l'indirizzo ldi-fior.42.rm
 #

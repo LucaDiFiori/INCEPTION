@@ -41,6 +41,9 @@
 #       generato da questo script, che contiene le informazioni di accesso al database.
 #       Se esiste già (ad esempio se ho già avviato il container in precedenza), non serve riconfigurare il database.
 
+
+sleep 10
+
 if [ ! -f /var/www/wordpress/wp-config.php ]; then
     wp config create --allow-root \
         --dbname=$SQL_DATABASE \

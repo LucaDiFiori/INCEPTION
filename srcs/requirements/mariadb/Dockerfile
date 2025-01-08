@@ -6,6 +6,7 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+
 COPY ./tools/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 # Copia dello script e mi assicuro che sia eseguibile modificando i permessi
