@@ -9,23 +9,19 @@ until mysql -u root -e "SELECT 1" > /dev/null 2>&1; do
     sleep 2
 done
 
-# Con questo comando, il client MySQL si connette al server MySQL e cerca di creare 
-# un database con il nome specificato nella variabile d'ambiente SQL_DATABASE.
+# Creazione del database
 echo "Creazione del database $SQL_DATABASE..."
 mysql -u root -e "CREATE DATABASE IF NOT EXISTS \`$SQL_DATABASE\`;"
 
-# Questo comando crea un utente MySQL con:
-# - Un nome specificato dalla variabile d'ambiente SQL_USER.
-# - Una password specificata dalla variabile d'ambiente SQL_PASSWORD.
-# - Permessi di accesso limitati a localhost (`@'localhost')
+# Creazione dell'utente
 echo "Creazione dell'utente $SQL_USER..."
 mysql -u root -e "CREATE USER IF NOT EXISTS \`$SQL_USER\`@'localhost' IDENTIFIED BY '$SQL_PASSWORD';"
 
-# Concedo tutti i permessi all'utente creato
+# Concessione dei permessi all'utente creato
 echo "Concessione dei permessi all'utente $SQL_USER sul database $SQL_DATABASE..."
 mysql -u root -e "GRANT ALL PRIVILEGES ON \`$SQL_DATABASE\`.* TO \`$SQL_USER\`@'%' IDENTIFIED BY '$SQL_PASSWORD';"
 
-# Questo comando modifica la password dell'utente root per connessioni locali su MySQL
+# Modifica della password per l'utente root
 echo "Modifica della password per l'utente root..."
 mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$SQL_ROOT_PASSWORD';"
 
@@ -39,17 +35,3 @@ mysqladmin -u root -p"$SQL_ROOT_PASSWORD" shutdown
 
 # Avviare il server in modalità normale
 exec mysqld_safe
-
-
-mariadb      | Attendere che il server MySQL sia completamente operativo...
-mariadb      | 250109 19:48:28 mysqld_safe Logging to syslog.
-mariadb      | 250109 19:48:28 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
-mariadb      | Creazione del database my_db...
-mariadb      | Creazione dell'utente user...
-mariadb      | Concessione dei permessi all'utente user sul database my_db...
-mariadb      | Modifica della password per l'utente root...
-mariadb      | Ricaricamento dei privilegi...
-mariadb      | ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
-mariadb      | Spegnimento del server MySQL...
-mariadb      | 250109 19:48:31 mysqld_safe Logging to syslog.
-mariadb      | 250109 19:48:31 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
