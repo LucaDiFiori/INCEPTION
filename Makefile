@@ -91,3 +91,13 @@ prune: clean
 	docker system prune -a
 	docker container prune 
 	docker rmi $(docker images -q)
+
+
+docker rmi 
+"docker rmi" requires at least 1 argument.
+See 'docker rmi --help'.
+
+Usage:  docker rmi [OPTIONS] IMAGE [IMAGE...]
+
+Remove one or more images
+make: *** [Makefile:93: prune] Errore 1
