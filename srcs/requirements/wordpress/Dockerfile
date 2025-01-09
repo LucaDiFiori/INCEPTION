@@ -35,8 +35,14 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     php7.4 \
     php-fpm \
     php-mysql \
+    php-xml \
+    php-curl \
+    php-gd \
+    php-mbstring \
+    php-intl \
     mariadb-client \
     wget
+
     
 #- Copia il file di configurazione di PHP-FPM
 COPY tools/www.conf /etc/php/7.4/fpm/pool.d/www.conf
