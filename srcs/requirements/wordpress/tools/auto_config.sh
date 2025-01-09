@@ -12,10 +12,18 @@ check_mariadb() {
 }
 
 # Aspetta che MariaDB sia attivo
-while ! check_mariadb; do
-    echo "Aspettando che MariaDB sia attivo..."
-    sleep 5
+# while ! check_mariadb; do
+#     echo "Aspettando che MariaDB sia attivo..."
+#     sleep 5
+# done
+
+#!/bin/sh
+
+# wait for mysql
+while ! mariadb -h$SQL_HOSTNAME -u$SQL_USER -p$SQL_PASSWORD $SQL_DATABASE &>/dev/null; do
+    sleep 3
 done
+
 
 # Lo script controlla se il file wp-config.php esiste già.
 # Se non esiste, utilizza il comando della CLI di WordPress wp config create 
