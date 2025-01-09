@@ -9,20 +9,20 @@ all: docker-up set-host
 # Creo i volumi sul mio host se non esistono
 
 # PROBLEMI : Non posso fare le cartelel con sudo
-#            Devo quindi anche rimuovere il chown -R lucadifiori /home/ldi-fior/data/
+#            Devo quindi anche rimuovere il chown -R ldi-fior /home/ldi-fior/data/
 docker-up:
 	@if [ ! -d $(MARIA_VOLUME) ]; then \
 		sudo mkdir -p $(MARIA_VOLUME); \
 		echo -e "\033[0;32m--> Mariadb Volume created in: $(MARIA_VOLUME)\033[0m"; \
-		sudo chown -R lucadifiori /home/ldi-fior/data/; \
+		sudo chown -R ldi-fior /home/ldi-fior/data/; \
 	fi
 	@if [ ! -d $(WORDPRESS_VOLUME) ]; then \
 		sudo mkdir -p $(WORDPRESS_VOLUME); \
 		echo -e "\033[0;32m--> WordPress Volume created in: $(WORDPRESS_VOLUME)\033[0m"; \
-		sudo chown -R lucadifiori /home/ldi-fior/data/; \
+		sudo chown -R ldi-fior /home/ldi-fior/data/; \
 	fi
 	@echo -e "\033[0;32m--> STARTING DOCKER SERVICES:\033[0m"
-	docker compose -f ./srcs/docker-compose.yml up  --build  
+	docker-compose -f ./srcs/docker-compose.yml up  --build  
 #POI RIMETTERE -d PRIMA DI --build
 
 # modifico il file hosts per poter accedere al sito tramite l'indirizzo ldi-fior.42.rm
@@ -58,7 +58,7 @@ set-host:
 # Questo comando ferma i container in esecuzione e rimuove i container, le reti create, 
 # e i volumi definiti nel file docker-compose.yml.
 stop:
-	@docker compose -f ./srcs/docker-compose.yml down
+	@docker-compose -f ./srcs/docker-compose.yml down
 
 # - Se ho container in esecuzione, li stoppo e rimuovo
 # - Se ho container fermi, li rimuovo
@@ -78,7 +78,7 @@ clean:
 		docker volume rm $$(docker volume ls -q); \
 	fi
 	@sudo sed -i '/127\.0\.0\.1 ldi-fior\.42\.rm/d' /etc/hosts
-	@sudo rm -rf /home/ldi-fior
+	@sudo rm -rf /home/ldi-fior/data/*
 #	@docker network ls --format "{{.Name}} {{.Driver}}" | \
 #	grep -vE '(bridge|host|none)' | \
 #	awk '{ print $$1 }' | \

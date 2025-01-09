@@ -37,6 +37,13 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     php-mysql \
     mariadb-client \
     wget
+    
+#- Copia il file di configurazione di PHP-FPM
+COPY tools/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+
+# aggiungo utente 
+RUN groupadd nginx && useradd -M -s /sbin/nologin -g nginx nginx
+
 
 # - Scarica l'archivio di WordPress dalla URL 
 #   specificata e lo salva nella directory /var/www
@@ -56,8 +63,6 @@ RUN wget https://wordpress.org/wordpress-6.0.tar.gz -P /var/www \
     && chown -R root:root /var/www/wordpress
 
 
-# - Copia il file di configurazione di PHP-FPM
-COPY tools/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 
 
