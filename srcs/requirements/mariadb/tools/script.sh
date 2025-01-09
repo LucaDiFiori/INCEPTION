@@ -2,6 +2,20 @@
 
 # Con questo script andremo a creare il nostro database e l'utente per accedervi
 
+# mariadb      | ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/run/mysqld/mysqld.sock' (2)
+# mariadb      | ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/run/mysqld/mysqld.sock' (2)
+# mariadb      | ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/run/mysqld/mysqld.sock' (2)
+# mariadb      | ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/run/mysqld/mysqld.sock' (2)
+# mariadb      | ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/run/mysqld/mysqld.sock' (2)
+# mariadb      | mysqladmin: connect to server at 'localhost' failed
+# mariadb      | error: 'Can't connect to local MySQL server through socket '/run/mysqld/mysqld.sock' (2)'
+# mariadb      | Check that mysqld is running and that the socket: '/run/mysqld/mysqld.sock' exists!
+# mariadb      | 250109 19:42:30 mysqld_safe Logging to syslog.
+# mariadb      | 250109 19:42:30 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
+# mariadb      | 250109 19:42:30 mysqld_safe Logging to syslog.
+# mariadb      | 250109 19:42:30 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
+
+
 # Avviamo il servizio mysql
 #service mysql start;
 mysqld_safe &
