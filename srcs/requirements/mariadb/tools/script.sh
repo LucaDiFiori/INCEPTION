@@ -6,11 +6,11 @@
 #service mysql start;
 mysqld_safe &
 
-# Attendere fino a quando il server MySQL è attivo
-until mysqladmin ping --silent; do
-    echo "Attendere che il server MySQL si avvii..."
-    sleep 2
-done
+# # Attendere fino a quando il server MySQL è attivo
+# until mysqladmin ping --silent; do
+#     echo "Attendere che il server MySQL si avvii..."
+#     sleep 2
+# done
 
 # Con questo comando, il client MySQL si connette al server MySQL e cerca di creare 
 # un database con il nome specificato nella variabile d'ambiente SQL_DATABASE.
