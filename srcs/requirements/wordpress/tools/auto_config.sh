@@ -20,7 +20,7 @@ check_mariadb() {
 #!/bin/sh
 
 # wait for mysql
-while ! mariadb -h$SQL_HOSTNAME -u$SQL_USER -p$SQL_PASSWORD $SQL_DATABASE &>/dev/null; do
+while ! mariadb -h$SQL_DATABASE_NAME  -u$SQL_USER -p$SQL_PASSWORD $SQL_DATABASE_NAME &>/dev/null; do
     sleep 3
 done
 
@@ -29,20 +29,20 @@ done
 # Se non esiste, utilizza il comando della CLI di WordPress wp config create 
 # per configurare automaticamente le informazioni del database 
 # (nome, utente, password, host).
-# I valori come $SQL_DATABASE, $SQL_USER, ecc. devono essere impostati come variabili 
+# I valori come $SQL_DATABASE_NAME, $SQL_USER, ecc. devono essere impostati come variabili 
 # d'ambiente nel file .env.
 
 if [ ! -f /var/www/wordpress/wp-config.php ]; then
     wp config create --allow-root \
-        --dbname=$SQL_DATABASE \
+        --dbname=$SQL_DATABASE_NAME \
         --dbuser=$SQL_USER \
         --dbpass=$SQL_PASSWORD \
-        --dbhost=mariadb:3306 \
+        --dbhost=$SQL_HOST \
         --path='/var/www/wordpress'
 
     # Configura WordPress automaticamente con i dati forniti.
     wp core install --allow-root \
-        --url=$WP_DOMAIN_NAME \
+        --url="https://$WP_DOMAIN_NAME" \
         --title=$WP_SITE_TITLE \
         --admin_user=$WP_ADMIN_USER \
         --admin_password=$WP_ADMIN_PASSWORD \

@@ -10,16 +10,16 @@
 # done
 
 # # Creazione del database
-# echo "Creazione del database $SQL_DATABASE..."
-# mysql -u root -e "CREATE DATABASE IF NOT EXISTS \`$SQL_DATABASE\`;"
+# echo "Creazione del database $SQL_DATABASE_NAME..."
+# mysql -u root -e "CREATE DATABASE IF NOT EXISTS \`$SQL_DATABASE_NAME\`;"
 
 # # Creazione dell'utente
 # echo "Creazione dell'utente $SQL_USER..."
 # mysql -u root -e "CREATE USER IF NOT EXISTS \`$SQL_USER\`@'localhost' IDENTIFIED BY '$SQL_PASSWORD';"
 
 # # Concessione dei permessi all'utente creato
-# echo "Concessione dei permessi all'utente $SQL_USER sul database $SQL_DATABASE..."
-# mysql -u root -e "GRANT ALL PRIVILEGES ON \`$SQL_DATABASE\`.* TO \`$SQL_USER\`@'%' IDENTIFIED BY '$SQL_PASSWORD';"
+# echo "Concessione dei permessi all'utente $SQL_USER sul database $SQL_DATABASE_NAME..."
+# mysql -u root -e "GRANT ALL PRIVILEGES ON \`$SQL_DATABASE_NAME\`.* TO \`$SQL_USER\`@'%' IDENTIFIED BY '$SQL_PASSWORD';"
 
 # # Modifica della password per l'utente root
 # echo "Modifica della password per l'utente root..."
@@ -67,9 +67,9 @@ DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.
 
 ALTER USER 'root'@'localhost' IDENTIFIED BY '$SQL_ROOT_PASSWORD';
 
-CREATE DATABASE $SQL_DATABASE CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE $SQL_DATABASE_NAME CHARACTER SET utf8 COLLATE utf8_general_ci;
 CREATE USER '$SQL_USER'@'%' IDENTIFIED by '$SQL_PASSWORD';
-GRANT ALL PRIVILEGES ON $SQL_DATABASE.* TO '$SQL_USER'@'%';
+GRANT ALL PRIVILEGES ON $SQL_DATABASE_NAME.* TO '$SQL_USER'@'%';
 
 FLUSH PRIVILEGES;
 EOF
