@@ -68,10 +68,7 @@ RUN wget https://wordpress.org/wordpress-6.0.tar.gz -P /var/www \
     && rm /var/www/wordpress-6.0.tar.gz \
     && chown -R root:root /var/www/wordpress
 
-
-
-
-
+    
 # Ora scarichiamo lo strumento WP-CLI (WordPress Command Line Interface) per
 # configurare e gestire il sito WordPress da riga di comando.
 # Questo strumento semplifica questa operazione, incluso il settaggio del
@@ -92,6 +89,7 @@ RUN wget https://wordpress.org/wordpress-6.0.tar.gz -P /var/www \
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp
+    
 
 
 # Copia lo script auto_config.sh nella directory /usr/local/bin

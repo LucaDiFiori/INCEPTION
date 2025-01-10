@@ -59,6 +59,7 @@ set-host:
 # e i volumi definiti nel file docker-compose.yml.
 stop:
 	@docker-compose -f ./srcs/docker-compose.yml down
+	
 
 # - Se ho container in esecuzione, li stoppo e rimuovo
 # - Se ho container fermi, li rimuovo
@@ -91,58 +92,7 @@ prune: clean
 	docker system prune -a
 	docker container prune 
 	docker rmi $(docker images -q)
+#aggiunto questo!!!!!!!!!!!!!!!!!!!1
+	docker volume prune 
 
 
-
-
-
-# CHAT
-
-# MARIA_VOLUME = /home/ldi-fior/data/mariadb_data
-# WORDPRESS_VOLUME = /home/ldi-fior/data/wordpress_data
-
-
-# all: docker-up set-host
-
-# docker-up:
-# 	@if [ ! -d $(MARIA_VOLUME) ]; then \
-# 		sudo mkdir -p $(MARIA_VOLUME); \
-# 		echo -e "\033[0;32m--> Mariadb Volume created in: $(MARIA_VOLUME)\033[0m"; \
-# 		sudo chown -R ldi-fior /home/ldi-fior/data/; \
-# 	fi
-# 	@if [ ! -d $(WORDPRESS_VOLUME) ]; then \
-# 		sudo mkdir -p $(WORDPRESS_VOLUME); \
-# 		echo -e "\033[0;32m--> WordPress Volume created in: $(WORDPRESS_VOLUME)\033[0m"; \
-# 		sudo chown -R ldi-fior /home/ldi-fior/data/; \
-# 	fi
-# 	@echo -e "\033[0;32m--> STARTING DOCKER SERVICES:\033[0m"
-# 	docker-compose -f ./srcs/docker-compose.yml up --build 
-
-# set-host:
-# 	@echo -e "\033[0;32m--> Setting up hosts file:\033[0m"
-# 	@echo -e "\033[0;32m127.0.0.1 -> ldi-fior.42.rm\033[0m"
-# 	@echo "127.0.0.1 ldi-fior.42.rm" | sudo tee -a /etc/hosts
-
-# stop:
-# 	@docker-compose -f ./srcs/docker-compose.yml down
-
-# clean:
-# 	@if [ -n "$$(docker ps -q)" ]; then \
-# 		docker container stop $$(docker ps -q); \
-# 	fi
-# 	@if [ -n "$$(docker ps -aq)" ]; then \
-# 		docker rm $$(docker ps -aq); \
-# 	fi
-# 	@if [ -n "$$(docker images -q)" ]; then \
-# 		docker rmi -f $$(docker images -q); \
-# 	fi
-# 	@if [ -n "$$(docker volume ls -q)" ]; then \
-# 		docker volume rm $$(docker volume ls -q); \
-# 	fi
-# 	@sudo sed -i '/127\.0\.0\.1 ldi-fior\.42\.rm/d' /etc/hosts
-# 	@sudo rm -rf /home/ldi-fior/data/*
-
-# prune: clean
-# 	docker system prune -a
-# 	docker container prune 
-# 	docker rmi $(docker images -q)
