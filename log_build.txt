@@ -1,240 +1,332 @@
-29 added, 0 removed; done.
-Setting up libfreetype6:amd64 (2.10.4+dfsg-1+deb11u1) ...
-Setting up mariadb-client-core-10.5 (1:10.5.26-0+deb11u2) ...
-Setting up libgdbm-compat4:amd64 (1.19-2) ...
-Setting up ucf (3.0043) ...
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
-Setting up libperl5.32:amd64 (5.32.1-4+deb11u4) ...
-Setting up procps (2:3.3.17-5) ...
-Setting up libxslt1.1:amd64 (1.1.34-4+deb11u1) ...
-Setting up libcurl4:amd64 (7.74.0-1.3+deb11u14) ...
-Setting up libx11-6:amd64 (2:1.7.2-1+deb11u2) ...
-Setting up php7.4-common (7.4.33-1+deb11u7) ...
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+Ho un esercizio in cui devo creare 3 containere: nginx, wordpress, mariadb partendo dalle immagini,
+implementando i file di configurazione etc.
 
-Creating config file /etc/php/7.4/mods-available/calendar.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+Ora ti manderò tutto il progetto un ed alla fine il messaggio di errore che ricevo cosi che tu possa dirmi
+cosa devo fare:
 
-Creating config file /etc/php/7.4/mods-available/ctype.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+____________________________________
+CONTAINER MARIA DB:
 
-Creating config file /etc/php/7.4/mods-available/exif.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+- File /tools/50.server.cnf:
+#[mysqld]
+#datadir = /var/lib/mysql
+#socket  = /run/mysqld/mysqld.sock
+#bind_address=*
+#port = 3306
+#user = mysql
+#pid-file                = /run/mysqld/mysqld.pi
 
-Creating config file /etc/php/7.4/mods-available/fileinfo.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+- script:
+#!/bin/sh
 
-Creating config file /etc/php/7.4/mods-available/ffi.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+if [ ! -d "/run/mysqld" ]; then
+	mkdir -p /run/mysqld
+	chown -R mysql:mysql /run/mysqld
+fi
 
-Creating config file /etc/php/7.4/mods-available/ftp.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+if [ ! -d "/var/lib/mysql/mysql" ]; then
+	
+	chown -R mysql:mysql /var/lib/mysql
 
-Creating config file /etc/php/7.4/mods-available/gettext.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+	# init database
+	mysql_install_db --basedir=/usr --datadir=/var/lib/mysql --user=mysql --rpm > /dev/null
 
-Creating config file /etc/php/7.4/mods-available/iconv.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+	tfile=`mktemp`
+	if [ ! -f "$tfile" ]; then
+		return 1
+	fi
 
-Creating config file /etc/php/7.4/mods-available/pdo.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+	# https://stackoverflow.com/questions/10299148/mysql-error-1045-28000-access-denied-for-user-billlocalhost-using-passw
+	cat << EOF > $tfile
+USE mysql;
+FLUSH PRIVILEGES;
 
-Creating config file /etc/php/7.4/mods-available/phar.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+DELETE FROM	mysql.user WHERE User='';
+DROP DATABASE test;
+DELETE FROM mysql.db WHERE Db='test';
+DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
 
-Creating config file /etc/php/7.4/mods-available/posix.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+ALTER USER 'root'@'localhost' IDENTIFIED BY '$SQL_ROOT_PASSWORD';
 
-Creating config file /etc/php/7.4/mods-available/shmop.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+CREATE DATABASE $SQL_DATABASE_NAME CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE USER '$SQL_USER'@'%' IDENTIFIED by '$SQL_PASSWORD';
+GRANT ALL PRIVILEGES ON $SQL_DATABASE_NAME.* TO '$SQL_USER'@'%';
 
-Creating config file /etc/php/7.4/mods-available/sockets.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+FLUSH PRIVILEGES;
+EOF
+	# run init.sql
+	/usr/bin/mysqld --user=mysql --bootstrap < $tfile
+	rm -f $tfile
+fi
 
-Creating config file /etc/php/7.4/mods-available/sysvmsg.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+# allow remote connections
+sed -i "s|skip-networking|# skip-networking|g" /etc/my.cnf.d/mariadb-server.cnf
+sed -i "s|.*bind-address\s*=.*|bind-address=0.0.0.0|g" /etc/my.cnf.d/mariadb-server.cnf
 
-Creating config file /etc/php/7.4/mods-available/sysvsem.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+exec /usr/bin/mysqld --user=mysql --console
 
-Creating config file /etc/php/7.4/mods-available/sysvshm.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+-Dockerfile:
+FROM alpine:3.13
 
-Creating config file /etc/php/7.4/mods-available/tokenizer.ini with new version
-Setting up libxpm4:amd64 (1:3.5.12-1.1+deb11u1) ...
-Setting up php7.4-curl (7.4.33-1+deb11u7) ...
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+RUN apk update && apk upgrade && apk add --no-cache \
+        mariadb \
+        mariadb-client
+        
+COPY tools/configure.sh /tmp/configure.sh
 
-Creating config file /etc/php/7.4/mods-available/curl.ini with new version
-Setting up php7.4-mysql (7.4.33-1+deb11u7) ...
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+ENTRYPOINT ["sh", "/tmp/configure.sh"]
 
-Creating config file /etc/php/7.4/mods-available/mysqlnd.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+___________________________________________
+ CONTAINER NGINX:
 
-Creating config file /etc/php/7.4/mods-available/mysqli.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+- File /conf/nginx.conf:
+# events { }
+# http {
+# 	server {
+#     	listen 443 ssl;
+# 		listen [::]:443 ssl;
+# 		server_name ldi-fior.42.rm;
+# 		ssl_certificate	/etc/nginx/ssl/ldi-fior.crt;
+# 		ssl_certificate_key	/etc/nginx/ssl/ldi-fior.key;
+# 		ssl_protocols		TLSv1.2 TLSv1.3;
+# 		root /var/www/html;
+# 		index index.php index.html index.htm;
+# 		location / {
+# 			autoindex on;
+# 			try_files $uri $uri/ =404;
+# 		}
+# 		location ~ \.php$ {
+# 			fastcgi_split_path_info ^(.+\.php)(/.+)$;
+# 			fastcgi_pass wordpress:9000;
+# 			fastcgi_index index.php;
+# 			include fastcgi_params;
+# 			fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+# 			fastcgi_param PATH_INFO $fastcgi_path_info;
+# 		}
+# 	}
+# }
 
-Creating config file /etc/php/7.4/mods-available/pdo_mysql.ini with new version
-Setting up fontconfig-config (2.13.1-4.2) ...
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
-Setting up php7.4-readline (7.4.33-1+deb11u7) ...
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+- Dockerfile:
+# FROM debian:bullseye
 
-Creating config file /etc/php/7.4/mods-available/readline.ini with new version
-Setting up php7.4-mbstring (7.4.33-1+deb11u7) ...
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
 
-Creating config file /etc/php/7.4/mods-available/mbstring.ini with new version
-Setting up php-mbstring (2:7.4+76) ...
-Setting up php7.4-intl (7.4.33-1+deb11u7) ...
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+# RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+#     php7.4 \
+#     php-fpm \
+#     php-mysql \
+#     php-xml \
+#     php-curl \
+#     php-gd \
+#     php-mbstring \
+#     php-intl \
+#     mariadb-client \
+#     wget
 
-Creating config file /etc/php/7.4/mods-available/intl.ini with new version
-Setting up php-intl (2:7.4+76) ...
-Setting up perl (5.32.1-4+deb11u4) ...
-Setting up mariadb-client-10.5 (1:10.5.26-0+deb11u2) ...
-Setting up php7.4-opcache (7.4.33-1+deb11u7) ...
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+# COPY tools/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
-Creating config file /etc/php/7.4/mods-available/opcache.ini with new version
-Setting up libfontconfig1:amd64 (2.13.1-4.2) ...
-Setting up libterm-readkey-perl (2.38-1+b2) ...
-Setting up mailcap (3.69) ...
-Setting up libdbi-perl:amd64 (1.643-3+b1) ...
-Setting up php-curl (2:7.4+76) ...
-Setting up php7.4-json (7.4.33-1+deb11u7) ...
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+# RUN groupadd nginx && useradd -M -s /sbin/nologin -g nginx nginx
 
-Creating config file /etc/php/7.4/mods-available/json.ini with new version
-Setting up php-mysql (2:7.4+76) ...
-Setting up php7.4-xml (7.4.33-1+deb11u7) ...
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+# RUN wget https://wordpress.org/wordpress-6.0.tar.gz -P /var/www \
+#     && tar -xzf /var/www/wordpress-6.0.tar.gz -C /var/www \
+#     && rm /var/www/wordpress-6.0.tar.gz \
+#     && chown -R root:root /var/www/wordpress
 
-Creating config file /etc/php/7.4/mods-available/dom.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+# RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+#     && chmod +x wp-cli.phar \
+#     && mv wp-cli.phar /usr/local/bin/wp
 
-Creating config file /etc/php/7.4/mods-available/simplexml.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+# COPY tools/auto_config.sh /usr/local/bin/auto_config.sh
 
-Creating config file /etc/php/7.4/mods-available/xml.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+# ENTRYPOINT ["/bin/bash", "/usr/local/bin/auto_config.sh"]
 
-Creating config file /etc/php/7.4/mods-available/xmlreader.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
 
-Creating config file /etc/php/7.4/mods-available/xmlwriter.ini with new version
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+____________________________________
+CONTAINER WORDPRESS:
 
-Creating config file /etc/php/7.4/mods-available/xsl.ini with new version
-Setting up mime-support (3.66) ...
-Setting up mariadb-client (1:10.5.26-0+deb11u2) ...
-Setting up php7.4-cli (7.4.33-1+deb11u7) ...
-update-alternatives: using /usr/bin/php7.4 to provide /usr/bin/php (php) in auto mode
-update-alternatives: using /usr/bin/phar7.4 to provide /usr/bin/phar (phar) in auto mode
-update-alternatives: using /usr/bin/phar.phar7.4 to provide /usr/bin/phar.phar (phar.phar) in auto mode
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+-File /tools/auto_config.sh:
+# #!/bin/bash
+# check_mariadb() {
+#     nc -z mariadb 3306
+# }
+# while ! mariadb -h$SQL_HOST -u$SQL_USER -p$SQL_PASSWORD $SQL_DATABASE_NAME &>/dev/null; do
+#     echo "from Wordpress: i'm waiting mariadb"
+#     sleep 3
+# done
+# echo "MariaDB is ready!"
 
-Creating config file /etc/php/7.4/cli/php.ini with new version
-Setting up libdbd-mariadb-perl (1.21-3) ...
-Setting up libgd3:amd64 (2.3.0-2) ...
-Setting up php7.4-gd (7.4.33-1+deb11u7) ...
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+# if [ ! -f /var/www/wordpress/wp-config.php ]; then
+#     wp config create --allow-root \
+#         --dbname=$SQL_DATABASE_NAME \
+#         --dbuser=$SQL_USER \
+#         --dbpass=$SQL_PASSWORD \
+#         --dbhost=$SQL_HOST \
+#         --path='/var/www/wordpress'
 
-Creating config file /etc/php/7.4/mods-available/gd.ini with new version
-Setting up php-xml (2:7.4+76) ...
-Setting up php7.4-fpm (7.4.33-1+deb11u7) ...
-debconf: unable to initialize frontend: Dialog
-debconf: (TERM is not set, so the dialog frontend is not usable.)
-debconf: falling back to frontend: Readline
+#     # Configura WordPress automaticamente con i dati forniti.
+#     wp core install --allow-root \
+#         --url="https://$WP_DOMAIN_NAME" \
+#         --title=$WP_SITE_TITLE \
+#         --admin_user=$WP_ADMIN_USER \
+#         --admin_password=$WP_ADMIN_PASSWORD \
+#         --admin_email=$WP_ADMIN_EMAIL \
+#         --path='/var/www/wordpress' 
 
-Creating config file /etc/php/7.4/fpm/php.ini with new version
-invoke-rc.d: could not determine current runlevel
-invoke-rc.d: policy-rc.d denied execution of start.
-Setting up php7.4 (7.4.33-1+deb11u7) ...
-Setting up php-fpm (2:7.4+76) ...
-Setting up php-gd (2:7.4+76) ...
-Processing triggers for libc-bin (2.31-13+deb11u11) ...
-Processing triggers for ca-certificates (20210119) ...
-Updating certificates in /etc/ssl/certs...
-0 added, 0 removed; done.
-Running hooks in /etc/ca-certificates/update.d...
-done.
-Processing triggers for php7.4-cli (7.4.33-1+deb11u7) ...
-Processing triggers for php7.4-fpm (7.4.33-1+deb11u7) ...
-invoke-rc.d: could not determine current runlevel
-invoke-rc.d: policy-rc.d denied execution of restart.
- ---> Removed intermediate container 3ece35fbb433
- ---> 58568158d7dd
+#     # Crea un nuovo utente WordPress con le credenziali specificate.
+#     wp user create --allow-root \
+#         $WP_SECOND_USER $WP_SECOND_EMAIL \
+#         --role=editor \
+#         --user_pass=$WP_SECOND_PASSWORD \
+#         --path='/var/www/wordpress'
+# fi
+
+# mkdir -p /run/php  # Crea la directory necessaria per PHP se non esiste
+# /usr/sbin/php-fpm7.4 -F  # Avvia il server PHP
+
+
+-FIle /tools/www.config:
+# [www]
+
+# user = nginx
+# group = nginx
+# listen = 9000
+# pm = dynamic
+# pm.max_children = 5
+# pm.start_servers = 2
+# pm.min_spare_servers = 1
+# pm.max_spare_servers = 3
+# clear_env = no
+
+
+- Dockerfile:
+# FROM debian:bullseye
+
+
+# RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+#     php7.4 \
+#     php-fpm \
+#     php-mysql \
+#     php-xml \
+#     php-curl \
+#     php-gd \
+#     php-mbstring \
+#     php-intl \
+#     mariadb-client \
+#     wget
+
+# COPY tools/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+
+# RUN groupadd nginx && useradd -M -s /sbin/nologin -g nginx nginx
+
+# RUN wget https://wordpress.org/wordpress-6.0.tar.gz -P /var/www \
+#     && tar -xzf /var/www/wordpress-6.0.tar.gz -C /var/www \
+#     && rm /var/www/wordpress-6.0.tar.gz \
+#     && chown -R root:root /var/www/wordpress
+
+# RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+#     && chmod +x wp-cli.phar \
+#     && mv wp-cli.phar /usr/local/bin/wp
+
+# COPY tools/auto_config.sh /usr/local/bin/auto_config.sh
+
+# ENTRYPOINT ["/bin/bash", "/usr/local/bin/auto_config.sh"]
+
+
+
+____________________________________
+FILE .ENV:
+# SQL_DATABASE_NAME=my_db
+# SQL_HOST=mariadb
+# SQL_USER=user
+# SQL_PASSWORD=password
+# SQL_ROOT_PASSWORD=turbo_password
+# WP_DOMAIN_NAME=ldi-fior.42.rm
+# WP_SITE_TITLE=TurboSito
+# WP_ADMIN_USER=turbo_admin
+# WP_ADMIN_PASSWORD=admin_turbo_password
+# WP_ADMIN_EMAIL=turboemail@gmail.com
+# WP_SECOND_USER=pippa_user
+# WP_SECOND_PASSWORD=user_pippa_password
+# WP_SECOND_EMAIL=pippaemail@gmail.com
+
+
+____________________________________
+DOCKER COMPOSE:
+
+# services:
+
+#   mariadb:
+#     container_name: mariadb
+#     build: ./requirements/mariadb
+#     env_file:
+#       - .env
+#     networks:
+#       - inception
+#     volumes:
+#       - mariadb_data:/var/lib/mysql
+#     expose:
+#       - "3306"
+#     restart: always
+
+#   wordpress:
+#     container_name: wordpress
+#     build: ./requirements/wordpress
+#     env_file:
+#       - .env
+#     networks:
+#       - inception
+#     depends_on:
+#       - mariadb
+#     volumes:
+#       - wordpress_data:/var/www/wordpress
+#     expose:
+#       - "9000"
+#     restart: always
+
+#   nginx:
+#     container_name: nginx
+#     build: ./requirements/nginx
+#     env_file:
+#       - .env
+#     networks:
+#       - inception
+#     depends_on:
+#       - wordpress
+#     volumes:
+#       - wordpress_data:/var/www/wordpress
+#     ports:
+#       - 443:443
+#     restart: always
+
+# volumes:
+
+
+#   mariadb_data:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       device: /home/ldi-fior/data/mariadb_data
+#       o: bind
+
+
+#   wordpress_data:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       device: /home/ldi-fior/data/wordpress_data
+#       o: bind
+
+# networks:
+#   inception:
+#     driver: bridge
+
+
+
+____________________________________
+ERRORE CHE RICEVO:
+
+...
+wordpress    | PHP Warning:  file_get_contents(phar://wp-cli.phar/vendor/wp-cli/wp-cli/templates/phar://usr/local/bin/wp/vendor/wp-cli/config-command/templates/wp-config.mustache): failed to open stream: phar error: "vendor/wp-cli/wp-cli/templates/phar:/usr/local/bin/wp/vendor/wp-cli/config-command/templates/wp-config.mustache" is not a file in phar "wp-cli.phar" in phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/utils.php on line 608
+wordpress    | Error: Could not create new 'wp-config.php' file.
+wordpress    | Error: Strange wp-config.php file: wp-settings.php is not loaded directly.
+wordpress    | Error: Strange wp-config.php file: wp-settings.php is not loaded directly.
+

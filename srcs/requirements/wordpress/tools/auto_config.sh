@@ -22,9 +22,10 @@ check_mariadb() {
 # wait for mysql
 while ! mariadb -h$SQL_HOST -u$SQL_USER -p$SQL_PASSWORD $SQL_DATABASE_NAME &>/dev/null; do
     echo "from Wordpress: i'm waiting mariadb"
+    echo "DA TOGLIERE!: DB_NAME: $SQL_DATABASE_NAME, DB_USER: $SQL_USER, DB_PASS: $SQL_PASSWORD, DB_HOST: $SQL_HOST"
+
     sleep 3
 done
-echo "MariaDB is ready!"
 
 
 # Lo script controlla se il file wp-config.php esiste già.

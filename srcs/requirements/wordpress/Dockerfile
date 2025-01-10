@@ -101,3 +101,4 @@ COPY tools/auto_config.sh /usr/local/bin/auto_config.sh
 # e avviare il server PHP) venga sempre eseguito ogni volta che il container viene avviato, 
 # indipendentemente da eventuali comandi aggiuntivi forniti.
 ENTRYPOINT ["/bin/bash", "/usr/local/bin/auto_config.sh"]
+

@@ -37,7 +37,3 @@ user = mysql
 
 # Specifica il percorso del file PID (Process ID) che MariaDB crea all'avvio
 pid-file                = /run/mysqld/mysqld.pid
-
-
-
-
