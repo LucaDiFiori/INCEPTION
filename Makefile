@@ -22,7 +22,7 @@ docker-up:
 		sudo chown -R ldi-fior /home/ldi-fior/data/; \
 	fi
 	@echo -e "\033[0;32m--> STARTING DOCKER SERVICES:\033[0m"
-	docker-compose -f ./srcs/docker-compose.yml up  --build  
+	docker-compose -f ./srcs/docker-compose.yml up --build 
 #POI RIMETTERE -d PRIMA DI --build
 
 # modifico il file hosts per poter accedere al sito tramite l'indirizzo ldi-fior.42.rm
