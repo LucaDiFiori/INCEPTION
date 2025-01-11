@@ -31,6 +31,12 @@ services:
     expose:
       - "3306"
     restart: always
+    healthcheck:  #aggiungo questo 
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
 
 
 # Servizio per l'applicazione WordPress

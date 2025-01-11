@@ -6,26 +6,36 @@
 # automatizziamo questo processo tramite uno script Bash chiamato 
 # auto_config.sh, evitando di configurare manualmente ogni volta.
 
-# Funzione per controllare se MariaDB è attivo
-check_mariadb() {
-    nc -z mariadb 3306
-}
+# #Vecchio check
+# # Funzione per controllare se MariaDB è attivo
+# check_mariadb() {
+#     nc -z mariadb 3306
+# }
 
-# Aspetta che MariaDB sia attivo
-# while ! check_mariadb; do
-#     echo "Aspettando che MariaDB sia attivo..."
-#     sleep 5
+# # wait for mysql
+# while ! mariadb -h$SQL_HOST -u$SQL_USER -p$SQL_PASSWORD $SQL_DATABASE_NAME &>/dev/null; do
+#     echo "from Wordpress: i'm waiting mariadb"
+#     echo "DA TOGLIERE!: DB_NAME: $SQL_DATABASE_NAME, DB_USER: $SQL_USER, DB_PASS: $SQL_PASSWORD, DB_HOST: $SQL_HOST"
+
+#     sleep 3
 # done
 
-#!/bin/sh
+# Nuovo check:
+# Funzione per controllare MariaDB con netcat
+check_mariadb() {
+    nc -z $SQL_HOST 3306
+}
 
-# wait for mysql
-while ! mariadb -h$SQL_HOST -u$SQL_USER -p$SQL_PASSWORD $SQL_DATABASE_NAME &>/dev/null; do
-    echo "from Wordpress: i'm waiting mariadb"
+# Ciclo per attendere che MariaDB sia pronto
+while ! mysql -h"$SQL_HOST" -u"$SQL_USER" -p"$SQL_PASSWORD" -e "SELECT 1;" &>/dev/null; do
+    echo "from Wordpress: I'm waiting for MariaDB"
     echo "DA TOGLIERE!: DB_NAME: $SQL_DATABASE_NAME, DB_USER: $SQL_USER, DB_PASS: $SQL_PASSWORD, DB_HOST: $SQL_HOST"
-
     sleep 3
 done
+echo "Mariadb è pronto"
+
+
+
 
 
 # Lo script controlla se il file wp-config.php esiste già.
