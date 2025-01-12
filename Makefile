@@ -1,5 +1,5 @@
-MARIA_VOLUME = /home/ldi-fior/data/mariadb_data
-WORDPRESS_VOLUME = /home/ldi-fior/data/wordpress_data
+MARIA_VOLUME = /home/cmaestri/data/mariadb_data
+WORDPRESS_VOLUME = /home/cmaestri/data/wordpress_data
 
 # DEVO CAMBIARE I PERCORSI DEI VOLUMI CON POSTI IN CUI NON HO BISOGNO DEL ROOT
 
@@ -9,27 +9,27 @@ all: docker-up set-host
 # Creo i volumi sul mio host se non esistono
 
 # PROBLEMI : Non posso fare le cartelel con sudo
-#            Devo quindi anche rimuovere il chown -R ldi-fior /home/ldi-fior/data/
+#            Devo quindi anche rimuovere il chown -R cmaestri /home/cmaestri/data/
 docker-up:
 	@if [ ! -d $(MARIA_VOLUME) ]; then \
 		sudo mkdir -p $(MARIA_VOLUME); \
 		echo -e "\033[0;32m--> Mariadb Volume created in: $(MARIA_VOLUME)\033[0m"; \
-		sudo chown -R ldi-fior /home/ldi-fior/data/; \
+		sudo chown -R cmaestri /home/cmaestri/data/; \
 	fi
 	@if [ ! -d $(WORDPRESS_VOLUME) ]; then \
 		sudo mkdir -p $(WORDPRESS_VOLUME); \
 		echo -e "\033[0;32m--> WordPress Volume created in: $(WORDPRESS_VOLUME)\033[0m"; \
-		sudo chown -R ldi-fior /home/ldi-fior/data/; \
+		sudo chown -R cmaestri /home/cmaestri/data/; \
 	fi
 	@echo -e "\033[0;32m--> STARTING DOCKER SERVICES:\033[0m"
 	docker-compose -f ./srcs/docker-compose.yml up --build 
 #POI RIMETTERE -d PRIMA DI --build
 
-# modifico il file hosts per poter accedere al sito tramite l'indirizzo ldi-fior.42.rm
+# modifico il file hosts per poter accedere al sito tramite l'indirizzo cmaestri.42.rm
 #
 # Cosa sto facendo:
 # Attraverso questo comando sto modificando il file hosts del mio sistema operativo
-# "creando l'alias" `ldi-fior.42.rm` per l'indirizzo IP 127.0.0.1
+# "creando l'alias" `cmaestri.42.rm` per l'indirizzo IP 127.0.0.1
 #
 # Perchè:
 # L'indirizzo 127.0.0.1 è l'indirizzo di loopback, che rappresenta il tuo computer stesso. 
@@ -37,7 +37,7 @@ docker-up:
 # tra loro senza utilizzare una rete esterna.
 # Visto che il server NGINX è in esecuzione come container sul mio host personale, 
 # per accedere al sito dovrò inviare una richiesta al mio indirizzo IP di loopback 
-# (127.0.0.1) rimappato a "ldi-fior.42.rm"
+# (127.0.0.1) rimappato a "cmaestri.42.rm"
 #
 # Accesso locale: Quando accedi a un servizio in esecuzione sul tuo computer, come il server 
 # web NGINX che hai configurato nei tuoi container Docker, lo fai tramite questo indirizzo. 
@@ -45,8 +45,8 @@ docker-up:
 # stesso dispositivo.
 set-host:
 	@echo -e "\033[0;32m--> Setting up hosts file:\033[0m"
-	@echo -e "\033[0;32m127.0.0.1 -> ldi-fior.42.rm\033[0m"
-	@echo "127.0.0.1 ldi-fior.42.rm" | sudo tee -a /etc/hosts
+	@echo -e "\033[0;32m127.0.0.1 -> cmaestri.42.rm\033[0m"
+	@echo "127.0.0.1 cmaestri.42.rm" | sudo tee -a /etc/hosts
 
 
 
@@ -78,8 +78,8 @@ clean:
 	@if [ -n "$$(docker volume ls -q)" ]; then \
 		docker volume rm $$(docker volume ls -q); \
 	fi
-	@sudo sed -i '/127\.0\.0\.1 ldi-fior\.42\.rm/d' /etc/hosts
-	@sudo rm -rf /home/ldi-fior/data/*
+	@sudo sed -i '/127\.0\.0\.1 cmaestri\.42\.rm/d' /etc/hosts
+	@sudo rm -rf /home/cmaestri/data/*
 #	@docker network ls --format "{{.Name}} {{.Driver}}" | \
 #	grep -vE '(bridge|host|none)' | \
 #	awk '{ print $$1 }' | \

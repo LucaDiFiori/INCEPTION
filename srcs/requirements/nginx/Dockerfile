@@ -61,9 +61,9 @@ COPY conf/nginx.conf /etc/nginx/nginx.conf
 # -subj: Specifica i valori dei campi del certificato X.509.
 RUN openssl req -x509 \ 
      -nodes \
-     -out /etc/nginx/ssl/ldi-fior.crt \
-     -keyout /etc/nginx/ssl/ldi-fior.key \
-     -subj "/C=IT/ST=Rome/L=Rome/O=42 School/OU=ldi-fior/CN=ldi-fior/"
+     -out /etc/nginx/ssl/cmaestri.crt \
+     -keyout /etc/nginx/ssl/cmaestri.key \
+     -subj "/C=IT/ST=Rome/L=Rome/O=42 School/OU=cmaestri/CN=cmaestri/"
 
 
 

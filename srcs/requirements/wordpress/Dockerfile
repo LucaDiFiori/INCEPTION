@@ -64,9 +64,10 @@ RUN groupadd nginx && useradd -M -s /sbin/nologin -g nginx nginx
 #   e dei suoi contenuti a root per garantire i 
 #   permessi corretti
 RUN wget https://wordpress.org/wordpress-6.0.tar.gz -P /var/www \
-    && tar -xzf /var/www/wordpress-6.0.tar.gz -C /var/www \
-    && rm /var/www/wordpress-6.0.tar.gz \
-    && chown -R root:root /var/www/wordpress
+&& tar -xzf /var/www/wordpress-6.0.tar.gz -C /var/www \
+&& rm /var/www/wordpress-6.0.tar.gz \
+&& chown -R nginx:nginx /var/www/wordpress \
+&& chmod -R 755 /var/www/wordpress
 
     
 # Ora scarichiamo lo strumento WP-CLI (WordPress Command Line Interface) per
@@ -86,14 +87,23 @@ RUN wget https://wordpress.org/wordpress-6.0.tar.gz -P /var/www \
 # Dopo aver scaricato wp-cli, lo rendiamo eseguibile e lo spostiamo nella directory /usr/local/bin
 # per usarlo facilmmente con il comando wp (comando principale di wp-cli)
 # senza dover specificare il percorso dove è installato
+
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x wp-cli.phar \
-    && mv wp-cli.phar /usr/local/bin/wp
-    
+    && mv wp-cli.phar /usr/local/bin/wp \
+    && wp --allow-root cli update --yes \
+    && mkdir -p /var/www/.wp-cli \
+    && chown -R nginx:nginx /var/www/.wp-cli
 
+    
+RUN mkdir -p /run/php && \
+    chown nginx:nginx /run/php
 
 # Copia lo script auto_config.sh nella directory /usr/local/bin
 COPY tools/auto_config.sh /usr/local/bin/auto_config.sh
+RUN chmod +x /usr/local/bin/auto_config.sh
+
+WORKDIR /var/www/wordpress
 
 # Usare ENTRYPOINT garantisce che il comportamento desiderato (configurare WordPress 
 # e avviare il server PHP) venga sempre eseguito ogni volta che il container viene avviato, 

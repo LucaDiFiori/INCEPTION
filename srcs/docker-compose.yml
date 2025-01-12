@@ -104,7 +104,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/ldi-fior/data/mariadb_data #vedere poi se questi percorsi vanno modificati
+      device: /home/cmaestri/data/mariadb_data #vedere poi se questi percorsi vanno modificati
       o: bind
 
 
@@ -112,7 +112,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/ldi-fior/data/wordpress_data
+      device: /home/cmaestri/data/wordpress_data
       o: bind
 
 

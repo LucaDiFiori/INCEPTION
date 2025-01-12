@@ -85,9 +85,9 @@ ___________________________________________
 # 	server {
 #     	listen 443 ssl;
 # 		listen [::]:443 ssl;
-# 		server_name ldi-fior.42.rm;
-# 		ssl_certificate	/etc/nginx/ssl/ldi-fior.crt;
-# 		ssl_certificate_key	/etc/nginx/ssl/ldi-fior.key;
+# 		server_name cmaestri.42.rm;
+# 		ssl_certificate	/etc/nginx/ssl/cmaestri.crt;
+# 		ssl_certificate_key	/etc/nginx/ssl/cmaestri.key;
 # 		ssl_protocols		TLSv1.2 TLSv1.3;
 # 		root /var/www/html;
 # 		index index.php index.html index.htm;
@@ -239,7 +239,7 @@ FILE .ENV:
 # SQL_USER=user
 # SQL_PASSWORD=password
 # SQL_ROOT_PASSWORD=turbo_password
-# WP_DOMAIN_NAME=ldi-fior.42.rm
+# WP_DOMAIN_NAME=cmaestri.42.rm
 # WP_SITE_TITLE=TurboSito
 # WP_ADMIN_USER=turbo_admin
 # WP_ADMIN_PASSWORD=admin_turbo_password
@@ -304,7 +304,7 @@ DOCKER COMPOSE:
 #     driver: local
 #     driver_opts:
 #       type: none
-#       device: /home/ldi-fior/data/mariadb_data
+#       device: /home/cmaestri/data/mariadb_data
 #       o: bind
 
 
@@ -312,7 +312,7 @@ DOCKER COMPOSE:
 #     driver: local
 #     driver_opts:
 #       type: none
-#       device: /home/ldi-fior/data/wordpress_data
+#       device: /home/cmaestri/data/wordpress_data
 #       o: bind
 
 # networks:
